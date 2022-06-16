@@ -118,235 +118,239 @@
 </template>
 
 <script setup>
-    import {reactive} from "vue";
+import {reactive, ref} from "vue";
 
-    const usersArray = reactive([
-      {
-        id: '100',
-        userName: '张三',
-        email: '123@qq.com',
-        mobile: '13711111111',
-        roleName: '超级管理员',
-        state: true
-      },
-      {
-        id: '101',
-        userName: '李四',
-        email: '1234@qq.com',
-        mobile: '13721111111',
-        roleName: '管理员',
-        state: false
-      },
-      {
-        id: '102',
-        userName: '王五',
-        email: '12345@qq.com',
-        mobile: '13731111111',
-        roleName: '普通员工',
-        state: false
-      },
-      {
-        id: '103',
-        userName: '赵六',
-        email: '321@qq.com',
-        mobile: '13741111111',
-        roleName: '管理员',
-        state: true
-      },
-      {
-        id: '104',
-        userName: '孙七',
-        email: '231@qq.com',
-        mobile: '13751111111',
-        roleName: '员工',
-        state: false
-      }
-    ])
-    let checkEmail = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入邮箱'))
-      } else {
-        const regEmail = /^([a-zA-Z\d_-])+@([a-zA-Z\d])+(\.[a-zA-Z\d_-])+/
-        if (regEmail.test(value)) {
-          callback()
-        }
-        callback(new Error('请输入合法的邮箱'))
-      }
-    }
-    let checkMobile = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入手机号'))
-      } else {
-        const regMobile = /^(0|86|17951)?(13\d|15[0-3,5-9]|17[678]|18\d)\d{8}$/
-        if (regMobile.test(value)) {
-          callback()
-        }
-        callback(new Error('请输入合法的手机号'))
-      }
-    }
-      const queryInfo= reactive({
-        // 搜索关键词
-        query: '',
-        // 当前页数
-        pageNum: 1,
-        // 当前每页显示的条数
-        pageSize: 10
-      })
-      // 用户数据
-      const userData = reactive({
-        pageNum: 1,           // 当前页数
-        users: usersArray,    // 用户数组
-      })
-      // 所有用户列表数据 数组
-      const userList = reactive([])
-      // 用户数
-      const total= ref(0)
-      // 所有角色的数据列表
-      const roleList = reactive(['超级管理员', '管理员', '测试角色', '领导', '员工'])
-      // 需要被分配角色的用户信息
-      const userInfo = ref({})
-      // 控制添加用户对话框的显示与隐藏
-      const addDialogVisible= ref(false)
-      // 添加用户的表单数据
-      const addForm= reactive({
-        userName: '',
-        password: '',
-        email: '',
-        mobile: '',
-      })
-      // 添加用户表单的验证规则对象
-      const addFormRules= reactive({
-        userName: [
-          {required: true, message: '请输入用户名', trigger: 'blur'},
-          {min: 3, max: 10, message: '用户名的长度在3~10个字符之间', trigger: 'blur'}
-        ],
-        password: [
-          {required: true, message: '请输入密码', trigger: 'blur'},
-          {min: 6, max: 15, message: '密码的长度在6~15个字符之间', trigger: 'blur'}
-        ],
-        email: [
-          {required: true, validator: checkEmail, trigger: 'blur'}
-        ],
-        mobile: [
-          {required: true, validator: checkMobile, trigger: 'blur'}
-        ]
-      })
-      const editDialogVisible= ref(false)
-      const editForm= ractive({})
-      const editFormRules = reactive({
-        email: [
-          {required: true, validator: checkEmail, trigger: 'blur'}
-        ],
-        mobile: [
-          {required: true, validator: checkMobile, trigger: 'blur'}
-        ]
-      })
-    const setRoleDialogVisible= ref(false)
-      const selectedRoleId=ref('')
-    getUserList()
-    getUserList() {
-      // 判断是否在查询
-      if (this.queryInfo.query === '') {
-        // 按分页查询数据
-        this.userList = this.getPageData(this.queryInfo.pageNum)
-        this.total = this.userList.length
-      } else {
-        let tempData = this.userData.users.filter(item => {
-          return item.userName.includes(this.queryInfo.query)
-        })
-        // todo:查询时也要进行分页
-        userList =getPageData(this.queryInfo.pageNum, tempData)
-        total = userList.length
-      }
-    },
-    // 监听 pagesize 改变的事件
-    handleSizeChange(newSize) {
-      // console.log(newSize)
-      this.queryInfo.pagesize = newSize
-      this.getUserList()
-    },
-    // 监听 页码值 改变的事件
-    handleCurrentChange(newPage) {
-      // console.log(newPage)
-      this.queryInfo.pagenum = newPage
-      this.getUserList()
-    },
-    // 监听 添加用户 对话框的关闭事件
-    addDialogClosed() {
-      // 每次关闭完都重置一下表单
-      this.$refs.addFormRef.resetFields()
-    },
-    // 点击按钮、添加新用户
-    addUser() {
-      this.$refs.addFormRef.validate(valid => {
-        if (!valid) {
-          return
-        }
-        // 校验通过，将表单内容加入到数组中
-        let temp = {}    // 创建一个临时 表单数据 对象
-        temp.userName = this.addForm.userName
-        temp.email = this.addForm.email
-        temp.mobile = this.addForm.mobile
-        temp.state = false
-        temp.roleName = '管理员'
-        temp.id = '105'
-        this.userData.users.push(temp)
-        this.addDialogVisible = false
-        this.getUserList()
-
-      })
-    },
-    // 展示编辑用户 的对话框
-    showEditDialog(id) {
-      let temp = []    // 临时数组 存放的是用户数据对象
-      temp = this.userList.filter(item => {
-        return item.id.includes(id)
-      })
-      this.editForm = temp[0]
-      this.editDialogVisible = true
-    },
-
-    // 修改用户信息并提交
-    editUserInfo() {
-      this.$refs.editFormRef.validate(valid => {
-        if (!valid) {
-          return
-        }
-
-        this.editDialogVisible = false
-        this.getUserList()
-        this.$message.success('更新用户信息成功！')
-      })
-    },
-
-    deleteUser(index) {
-      this.userData.users.splice(index, 1)
-      this.getUserList()
-    },
-    setRole(userInfo) {
-
-    },
-
-    getPageData(currentPage, data) {
-      let result = []
-      let temp
-      if (data === undefined) {
-        temp = this.userData.users
-      } else {
-        temp = data
-      }
-      if (currentPage * this.queryInfo.pageSize > temp.length) {
-        for (let i = (currentPage - 1) * this.queryInfo.pageSize; i < temp.length; i++) {
-          result.push(this.userData.users[i])
-        }
-      } else {
-        for (let i = (currentPage - 1) * this.queryInfo.pageSize; i < currentPage * this.queryInfo.pageSize; i++) {
-          result.push(this.userData.users[i])
-        }
-      }
-      return result
-    }
+const usersArray = reactive([
+  {
+    id: '100',
+    userName: '张三',
+    email: '123@qq.com',
+    mobile: '13711111111',
+    roleName: '超级管理员',
+    state: true
   },
+  {
+    id: '101',
+    userName: '李四',
+    email: '1234@qq.com',
+    mobile: '13721111111',
+    roleName: '管理员',
+    state: false
+  },
+  {
+    id: '102',
+    userName: '王五',
+    email: '12345@qq.com',
+    mobile: '13731111111',
+    roleName: '普通员工',
+    state: false
+  },
+  {
+    id: '103',
+    userName: '赵六',
+    email: '321@qq.com',
+    mobile: '13741111111',
+    roleName: '管理员',
+    state: true
+  },
+  {
+    id: '104',
+    userName: '孙七',
+    email: '231@qq.com',
+    mobile: '13751111111',
+    roleName: '员工',
+    state: false
+  }
+])
+const checkEmail = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('请输入邮箱'))
+  } else {
+    const regEmail = /^([a-zA-Z\d_-])+@([a-zA-Z\d])+(\.[a-zA-Z\d_-])+/
+    if (regEmail.test(value)) {
+      callback()
+    }
+    callback(new Error('请输入合法的邮箱'))
+  }
+}
+const checkMobile = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('请输入手机号'))
+  } else {
+    const regMobile = /^(0|86|17951)?(13\d|15[0-3,5-9]|17[678]|18\d)\d{8}$/
+    if (regMobile.test(value)) {
+      callback()
+    }
+    callback(new Error('请输入合法的手机号'))
+  }
+}
+// 查询信息
+const queryInfo = reactive({
+  // 搜索关键词
+  query: '',
+  // 当前页数
+  pageNum: 1,
+  // 当前每页显示的条数
+  pageSize: 10
+})
+// 用户数据
+const userData = reactive({
+  pageNum: 1,           // 当前页数
+  users: usersArray,    // 用户数组
+})
+// 所有用户列表数据 数组
+const userList = ref([])
+// 用户数
+const total = ref(0)
+// 所有角色的数据列表
+const roleList = ref(['超级管理员', '管理员', '测试角色', '领导', '员工'])
+// 需要被分配角色的用户信息
+const userInfo = ref({})
+// 控制添加用户对话框的显示与隐藏
+const addDialogVisible = ref(false)
+const editDialogVisible = ref(false)
+const editForm = ref({})
+const setRoleDialogVisible = ref(false)
+//已经获取到的用户id
+const selectedRoleId = ref('')
+//修改表单引用
+const editFormRef = ref()
+const addFormRef = ref()
+
+// 添加用户的表单数据
+const addForm = reactive({
+  userName: '',
+  password: '',
+  email: '',
+  mobile: '',
+})
+// 添加用户表单的验证规则对象
+const addFormRules = reactive({
+  userName: [
+    {required: true, message: '请输入用户名', trigger: 'blur'},
+    {min: 3, max: 10, message: '用户名的长度在3~10个字符之间', trigger: 'blur'}
+  ],
+  password: [
+    {required: true, message: '请输入密码', trigger: 'blur'},
+    {min: 6, max: 15, message: '密码的长度在6~15个字符之间', trigger: 'blur'}
+  ],
+  email: [
+    {required: true, validator: checkEmail, trigger: 'blur'}
+  ],
+  mobile: [
+    {required: true, validator: checkMobile, trigger: 'blur'}
+  ]
+})
+
+const editFormRules = reactive({
+  email: [
+    {required: true, validator: checkEmail, trigger: 'blur'}
+  ],
+  mobile: [
+    {required: true, validator: checkMobile, trigger: 'blur'}
+  ]
+})
+
+const getPageData = (currentPage, data) => {
+  let result = []
+  let temp
+  if (data === undefined) {
+    temp = userData.users
+  } else {
+    temp = data
+  }
+  if (currentPage * queryInfo.pageSize > temp.length) {
+    for (let i = (currentPage - 1) * queryInfo.pageSize; i < temp.length; i++) {
+      result.push(userData.users[i])
+    }
+  } else {
+    for (let i = (currentPage - 1) * queryInfo.pageSize; i < currentPage * queryInfo.pageSize; i++) {
+      result.push(userData.users[i])
+    }
+  }
+  return result
+}
+const getUserList = () => {
+  // 判断是否在查询
+  if (queryInfo.query === '') {
+    // 按分页查询数据
+    userList.value = getPageData(queryInfo.pageNum)
+    total.value = userList.value.length
+  } else {
+    let tempData = userData.users.filter(item => {
+      return item.userName.includes(queryInfo.query)
+    })
+    userList.value = getPageData(queryInfo.pageNum, tempData)
+    total.value = userList.value.length
+  }
+}
+getUserList();
+// 监听 pageSize 改变的事件
+const handleSizeChange = (newSize) => {
+  // console.log(newSize)
+  queryInfo.pagesize = newSize
+  getUserList()
+}
+// 监听 页码值 改变的事件
+const handleCurrentChange = (newPage) => {
+  // console.log(newPage)
+  queryInfo.pagenum = newPage
+  getUserList()
+}
+
+// 监听 添加用户 对话框的关闭事件
+const addDialogClosed = () => {
+  // 每次关闭完都重置一下表单
+  addFormRef.resetFields()
+}
+
+// 点击按钮、添加新用户
+const addUser = () => {
+  addFormRef.validate(valid => {
+    if (!valid) {
+      return
+    }
+    // 校验通过，将表单内容加入到数组中
+    let temp = {}    // 创建一个临时 表单数据 对象
+    temp.userName = addForm.userName
+    temp.email = addForm.email
+    temp.mobile = addForm.mobile
+    temp.state = false
+    temp.roleName = '管理员'
+    temp.id = '105'
+    userData.users.push(temp)
+    addDialogVisible.value = false
+    getUserList()
+
+  })
+}
+// 展示编辑用户 的对话框
+const showEditDialog = (id) => {
+  let temp = []    // 临时数组 存放的是用户数据对象
+  temp = userList.value.filter(item => {
+    return item.id.includes(id)
+  })
+  editForm.value = temp[0]
+  editDialogVisible.value = true
+}
+// 修改用户信息并提交
+const editUserInfo = () => {
+  editFormRef.validate(valid => {
+    if (!valid) {
+      return
+    }
+
+    editDialogVisible.value = false
+    getUserList()
+    this.$message.success('更新用户信息成功！')
+  })
+}
+
+const deleteUser = (index) => {
+  userData.users.splice(index, 1)
+  getUserList()
+}
+const setRole = (userInfo) => {
 }
 </script>
 
