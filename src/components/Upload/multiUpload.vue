@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div>
     <el-upload
       :action="useOss?ossUploadUrl:minioUploadUrl"
@@ -14,16 +14,16 @@
     >
       <i class="el-icon-plus"></i>
     </el-upload>
-    <el-dialog :visible.sync="dialogVisible">
-      <img width="100%" :src="dialogImageUrl" alt="">
+    <el-dialog v-model:visible="dialogVisible">
+      <img width="100%" :src="dialogImageUrl" alt="" />
     </el-dialog>
   </div>
 </template>
 <script>
-  import {policy} from '@/api/oss'
+import {policy} from '@/api/oss';
 
-  export default {
-    name: 'multiUpload',
+export default {
+    name: 'MultiUpload',
     props: {
       //图片属性数组
       value: Array,

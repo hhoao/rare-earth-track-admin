@@ -20,21 +20,5 @@ module.exports = defineConfig({
           })
           .end();
   },
-  /*devServer: {
-    proxy: {
-      '/': {
-        ws: false, // proxy websockets
-        target: 'http://192.168.23.125:8080',
-        pathRewrite: {
-          '^/': '/bpp/'
-        },
-        cookiePathRewrite: {
-          '/bpp': '/'
-        }
-      }
-    }
-  },*/
   transpileDependencies: true,
-  // 关闭eslint
-  lintOnSave: false
 })

@@ -1,4 +1,4 @@
-import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 
 const routes = []
 const asyncRouterContext = require.context('./asyncModules', true, /\.js$/);
@@ -15,7 +15,6 @@ constantRouterContext.keys().forEach(route => {
     routes.push(...routerModule.default)
     constantRouterMap = [...constantRouterMap, ...(routerModule.default || routerModule)]
 })
-
 export default createRouter({
     history: createWebHistory(process.env["VUE_APP_BASE_URL"]),
     routes

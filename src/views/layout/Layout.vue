@@ -1,17 +1,17 @@
 <template>
   <div class="app-wrapper" :class="classObj">
-    <sidebar class="sidebar-container"></sidebar>
+    <sidebar class="sidebar-container" />
     <div class="main-container">
-      <navbar></navbar>
-      <app-main></app-main>
+      <navbar />
+      <app-main />
     </div>
   </div>
 </template>
 
 <script>
-import { Navbar, Sidebar, AppMain } from './components'
-import ResizeMixin from './mixin/ResizeHandler'
-import {markRaw} from "vue";
+import {AppMain, Navbar, Sidebar} from './components';
+import ResizeMixin from './mixin/ResizeHandler';
+import {markRaw} from 'vue';
 
 export default markRaw({
   name: 'layout',

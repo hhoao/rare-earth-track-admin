@@ -6,30 +6,30 @@
         <span>用户登录</span>
       </div>
       <el-form
-          ref="loginForm"
-          :model="loginForm"
-          :rules="loginFormRules"
-          class="login_form"
+        ref="loginForm"
+        :model="loginForm"
+        :rules="loginFormRules"
+        class="login_form"
       >
         <el-form-item prop="username">
           <el-input
-              v-model="loginForm.username"
-              placeholder="请输入用户名"
+            v-model="loginForm.username"
+            placeholder="请输入用户名"
           >
             <template #prefix>
-              <svg-icon icon-class="user"></svg-icon>
+              <svg-icon icon-class="user" />
             </template>
 
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input
-              v-model="loginForm.password"
-              type="password"
-              placeholder="请输入登录密码"
+            v-model="loginForm.password"
+            type="password"
+            placeholder="请输入登录密码"
           >
             <template #prefix>
-              <svg-icon icon-class="ums"></svg-icon>
+              <svg-icon icon-class="ums" />
             </template>
           </el-input>
         </el-form-item>
@@ -42,7 +42,7 @@
 </template>
 <script>
 
-import {setCookie} from "@/utils/support";
+import {setCookie} from '@/utils/support';
 
 export default {
   data() {
