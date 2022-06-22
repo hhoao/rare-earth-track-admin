@@ -29,9 +29,7 @@ import {inject, ref} from 'vue';
 import {updateUser} from '/src/api/user';
 import {checkEmail, checkMobile} from '@/utils/check';
 
-
-const getUserList = inject('getUserList')
-const userList = inject('userList')
+const userRepository = inject('userRepository')
 const editDialogVisible = ref(false)
 const editForm = ref({})
 const editFormRef = ref()
@@ -45,7 +43,7 @@ const editFormRules = {
 }
 
 const showEditDialog = (id) => {
-  for (let user of userList.value){
+  for (let user of userRepository.userList){
     if (user.id === id){
       editForm.value = user
       console.log(editForm.value)
@@ -61,7 +59,7 @@ const editUserInfo = () => {
     }
     updateUser(editForm.value)
     editDialogVisible.value = false
-    getUserList()
+    userRepository.getList()
     this.$message.success('更新用户信息成功！')
   })
 }

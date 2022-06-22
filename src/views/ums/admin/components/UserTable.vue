@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-table
-      :data="userList.value"
+      :data="userRepository.userList"
       stripe
       border
     >
@@ -53,21 +53,22 @@
           <el-button
             type="danger"
             size="small"
-            @click="deleteUser(scope.$index)"
+            @click="handleDeleteUser(scope.row.id)"
           >
             删除用户
           </el-button>
-
           <el-button
             type="warning"
             size="small"
-            @click="setRole(scope.row)"
+            @click="setRoleFormRef.showSetRoleDialog(scope.row)"
           >
             分配角色
           </el-button>
+
         </template>
       </el-table-column>
     </el-table>
+    <set-form ref="setRoleFormRef" />
     <edit-form ref="editFormRef" />
     <div>
       <el-pagination
@@ -84,60 +85,64 @@
 </template>
 
 <script setup>
-import {getUserAuths, list, updateUser} from '@/api/user';
+import {deleteUser, getUserAuths, list, updateUser} from '@/api/user';
 import {getRoleNameByRoleId} from '@/api/role';
 import {inject, reactive, ref} from 'vue';
 import EditForm from './EditForm';
+import SetForm from '@/views/ums/admin/components/SetForm';
 
-const userList = inject("userList")
-const getUserList = inject("getUserList")
-const editFormRef = ref()
+const userRepository = inject('userRepository');
+const editFormRef = ref();
+const setRoleFormRef = ref();
 const page = reactive({
-  query: '',
   total: 0,
   pageNum: 1,
   pageSize: 5,
   pageCount: 0,
-})
+});
 
-const handleStatusChange = (index, row) =>{
+const handleStatusChange = (index, row) => {
   let newUser = {
     id: row.id,
-    status: row.status
-  }
-  updateUser(newUser)
-}
+    status: row.status,
+  };
+  updateUser(newUser);
+};
 
-getUserList.value = (init ) => {
-  userList.value = []
+userRepository.getUserList = () => {
+  userRepository.userList = [];
+  list({pageNum: page.pageNum, pageSize: page.pageSize}, userRepository.queryParams)
+      .then((userResponse) => {
+        page.total = userResponse.data.total;
+        for (let i = 0; i < userResponse.data.list.length; i++) {
+          let user = userResponse.data.list[i];
+          getUserAuths(user.id).then((authResponse) => {
+            user.roleName = getRoleNameByRoleId(user.roleId);
+            user.phone = authResponse.data.phone;
+            user.email = authResponse.data.email;
+            user.username = authResponse.data.username;
+            userRepository.userList[i] = user;
+          });
+        }
+      });
+};
+userRepository.getUserList();
 
-  list(page.pageNum, page.pageSize).then((userResponse) => {
-    if (init){
-      page.total =userResponse.data.total
-      page.pageSize = userResponse.data.pageSize
-    }
-    for (let i = 0; i < userResponse.data.list.length; i++) {
-      let user = userResponse.data.list[i]
-      getUserAuths(user.id).then((authResponse) => {
-        user.roleName = getRoleNameByRoleId(user.roleId)
-        user.phone = authResponse.data.phone
-        user.email = authResponse.data.email
-        user.username = authResponse.data.username
-        userList.value[i] = user
-      })
-    }
-  })
-}
-getUserList.value(true)
+const handleDeleteUser = (id) => {
+  deleteUser(id).then(() => {
+    userRepository.getUserList();
+  });
+};
+
 
 const handleSizeChange = (newSize) => {
-  page.pageSize = newSize
-  getUserList.value()
-}
+  page.pageSize = newSize;
+  userRepository.getUserList();
+};
 const handleCurrentChange = (newPage) => {
-  page.pageNum = newPage
-  getUserList.value()
-}
+  page.pageNum = newPage;
+  userRepository.getUserList();
+};
 
 
 </script>

@@ -1,5 +1,10 @@
 import request from '@/utils/request'
 
+export const allStatus = [
+    {value: '0', name: 'False'},
+    {value: '1', name: 'True'}
+]
+
 export function getUserMenus() {
     return request({
         url: '/user/role/menus',
@@ -11,6 +16,18 @@ export function getUserAuths(userId) {
     return request({
         url: `users/${userId}/auths`,
         method: 'get'
+    })
+}
+export function searchUser(){
+    return request({
+        url: `users/search`
+    })
+}
+export function addUser(newUser) {
+    return request({
+        url: `users`,
+        method: 'post',
+        data: newUser
     })
 }
 export function updateUser(user) {
@@ -26,14 +43,11 @@ export function deleteUser(userId) {
         method: 'delete'
     })
 }
-export function list(pageNum, pageSize) {
+export function list(pageInfo, queryUser) {
     return request({
         url: 'users',
         method: 'get',
-        params: {
-            "pageNum": pageNum,
-            "pageSize": pageSize
-        }
+        params: Object.assign(pageInfo, queryUser)
     })
 }
 export function requestUserList(pageNum, pageSize) {
