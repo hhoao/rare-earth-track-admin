@@ -6,7 +6,7 @@ export default [
         name: 'ums',
         path: '/ums',
         component: Layout,
-        redirect: '/ums/user',
+        redirect: '/ums/admin',
         meta: {title: '用户', icon: 'ums'},
         hidden: false,
         children: [

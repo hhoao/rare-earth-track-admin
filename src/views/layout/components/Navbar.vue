@@ -4,9 +4,9 @@
     <breadcrumb />
     <el-dropdown class="avatar-container" trigger="click">
       <div class="avatar-wrapper">
-        <img class="user-avatar" :src="avatar" alt="" />
-        <i class="el-icon-caret-bottom"></i>
+        <svg-icon class="user-avatar" :icon-class="avatar ? avatar : 'avatar-male'" />
       </div>
+
       <template #dropdown>
         <el-dropdown-menu class="user-dropdown">
           <router-link class="inlineBlock" to="/">
@@ -23,32 +23,23 @@
   </el-menu>
 </template>
 
-<script>
-import {mapGetters} from 'vuex';
+<script setup>
+import {useStore} from 'vuex';
 import Breadcrumb from '@/components/Breadcrumb';
 import Hamburger from '@/components/Hamburger';
+import {computed} from 'vue';
+import SvgIcon from '@/components/SvgIcon';
 
-export default {
-  components: {
-    Breadcrumb,
-    Hamburger
-  },
-  computed: {
-    ...mapGetters([
-      'sidebar',
-      'avatar'
-    ])
-  },
-  methods: {
-    toggleSideBar() {
-      this.$store.dispatch('ToggleSideBar')
-    },
-    logout() {
-      this.$store.dispatch('LogOut').then(() => {
-        location.reload() // 为了重新实例化vue-router对象 避免bug
-      })
-    }
-  }
+const store = useStore()
+const sidebar = computed(() => store.getters.sidebar)
+const avatar = computed(() => store.getters.avatar)
+const toggleSideBar = () => {
+  store.dispatch('ToggleSideBar')
+}
+const logout = () => {
+ store.dispatch('LogOut').then(() => {
+    location.reload(); // 为了重新实例化vue-router对象 避免bug
+  });
 }
 </script>
 
@@ -57,37 +48,36 @@ export default {
   height: 50px;
   line-height: 50px;
   border-radius: 0 !important;
+
   .hamburger-container {
     line-height: 58px;
     height: 50px;
     float: left;
     padding: 0 10px;
   }
+
   .screenfull {
     position: absolute;
     right: 90px;
     top: 16px;
     color: red;
   }
+
   .avatar-container {
     height: 50px;
     display: inline-block;
     position: absolute;
     right: 35px;
+
     .avatar-wrapper {
       cursor: pointer;
       margin-top: 5px;
       position: relative;
+
       .user-avatar {
         width: 40px;
         height: 40px;
         border-radius: 10px;
-      }
-      .el-icon-caret-bottom {
-        position: absolute;
-        right: -20px;
-        top: 25px;
-        font-size: 12px;
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <el-card>
+  <div class="app-container">
+    <el-card class="filter-container" shadow="never">
       <template v-if="data.listForm && data.listForm.items">
         <query-form ref="queryFormRef" :data="data.queryForm" />
         <list-table

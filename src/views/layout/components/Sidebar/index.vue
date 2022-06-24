@@ -4,7 +4,7 @@
       mode="vertical"
       :show-timeout="200"
       :default-active="$route.path"
-      :collapse="isCollapse"
+      :collapse="isCollapse()"
       background-color="#304156"
       text-color="#bfcbd9"
       active-text-color="#409EFF"
@@ -14,24 +14,17 @@
   </scroll-bar>
 </template>
 
-<script>
-import { mapGetters } from 'vuex'
-import SidebarItem from './SidebarItem'
-import ScrollBar from '@/components/ScrollBar'
+<script setup>
+import SidebarItem from './SidebarItem';
+import ScrollBar from '@/components/ScrollBar';
+import {computed} from 'vue';
+import {useStore} from 'vuex';
 
-export default {
-  components: { SidebarItem, ScrollBar },
-  computed: {
-    ...mapGetters([
-      'sidebar',
-      'routers'
-    ]),
-    routes() {
-      return this.routers
-    },
-    isCollapse() {
-      return !this.sidebar.opened
-    }
-  }
+const store = useStore()
+const sidebar = computed(() => store.getters.sidebar)
+const routes = computed(() => store.getters.routers)
+
+const isCollapse = () => {
+  return !sidebar.value.opened
 }
 </script>
