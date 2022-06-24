@@ -6,16 +6,16 @@
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
-import {deleteProduct, listProducts, updateProduct} from '@/api/product';
+import {deleteFactory, listFactories, updateFactory} from '@/api/factory';
 
 const updateHandler = ref((data) => {
-  return updateProduct(data);
+  return updateFactory(data);
 });
 const deleteHandler = ref((data) => {
-  return deleteProduct(data.name);
+  return deleteFactory(data.name);
 });
 const getListHandler = async ({page, queryParams}) => {
-  let response = await listProducts({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams);
+  let response = await listFactories({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams);
   let retPage = {};
   retPage.total = response.data.total;
   return {page: retPage, list: response.data.list};
@@ -35,9 +35,19 @@ const managerFormData = ref({
         style: {placeholder: '名称'},
       },
       {
-        label: '批次',
-        name: 'batchId',
-        style: {placeholder: '批次'}
+        label: '手机号',
+        name: 'phone',
+        style: {placeholder: '手机号'}
+      },
+      {
+        label: '邮箱',
+        name: 'email',
+        style: {placeholder: '邮箱'}
+      },
+      {
+        label: '地址',
+        name: 'address',
+        style: {placeholder: '地址'}
       },
     ],
   },
@@ -52,8 +62,16 @@ const managerFormData = ref({
         name: 'name',
       },
       {
-        label: '批次',
-        name: 'batchId',
+        label: '手机号',
+        name: 'phone',
+      },
+      {
+        label: '邮箱',
+        name: 'email',
+      },
+      {
+        label: '地址',
+        name: 'address',
       },
     ],
     handler: getListHandler,
@@ -73,8 +91,19 @@ const managerFormData = ref({
             style: {placeholder: '名称'},
           },
           {
-            label: '批次',
-            name: 'batchId',
+            label: '手机号',
+            name: 'phone',
+            style: {placeholder: '手机号'}
+          },
+          {
+            label: '邮箱',
+            name: 'email',
+            style: {placeholder: '邮箱'}
+          },
+          {
+            label: '地址',
+            name: 'address',
+            style: {placeholder: '地址'}
           },
         ],
         handler: updateHandler,

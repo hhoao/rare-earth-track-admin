@@ -9,7 +9,7 @@
       text-color="#bfcbd9"
       active-text-color="#409EFF"
     >
-      <sidebar-item :routes="routes"></sidebar-item>
+      <sidebar-item :routes="routes" />
     </el-menu>
   </scroll-bar>
 </template>
