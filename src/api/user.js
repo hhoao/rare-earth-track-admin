@@ -1,10 +1,5 @@
 import request from '@/utils/request'
 
-export const allStatus = [
-    {value: '0', name: 'False'},
-    {value: '1', name: 'True'}
-]
-
 export function getUserMenus() {
     return request({
         url: '/user/role/menus',
@@ -18,11 +13,7 @@ export function getUserAuths(userId) {
         method: 'get'
     })
 }
-export function searchUser(){
-    return request({
-        url: `users/search`
-    })
-}
+
 export function addUser(newUser) {
     return request({
         url: `users`,
@@ -48,15 +39,5 @@ export function list(pageInfo, queryUser) {
         url: 'users',
         method: 'get',
         params: Object.assign(pageInfo, queryUser)
-    })
-}
-export function requestUserList(pageNum, pageSize) {
-    return request({
-        url: 'users',
-        method: 'get',
-        data: {
-            pageNum,
-            pageSize,
-        }
     })
 }

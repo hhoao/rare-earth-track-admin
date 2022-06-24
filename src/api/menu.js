@@ -21,7 +21,7 @@ export const deleteMenu = (menuName) => {
 }
 export const updateMenu = (menuName, newMenu) => {
   return request({
-    url: `menus`,
+    url: `menus/${menuName}`,
     method: "patch",
     data: newMenu
   })

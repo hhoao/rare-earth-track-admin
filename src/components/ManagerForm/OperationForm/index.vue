@@ -53,7 +53,9 @@ const props = defineProps({
 });
 
 const repository = inject('repository');
+//是否现实
 const operationDialogVisible = ref(false);
+//表单数据
 const operationForm = ref({});
 
 //动态表单校验规则
