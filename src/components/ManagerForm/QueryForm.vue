@@ -26,22 +26,22 @@
         ref="formRef"
       >
         <el-form-item
-          v-for="item in items"
+          v-for="item in data.items"
           :label="item.label + ':'"
           :key="item.name"
           clearable
         >
-          <template v-if="item.queryStyle && item.queryStyle.type==='select'">
+          <template v-if="item.style && item.style.type==='select'">
             <el-select v-model="queryParams[item.name]">
               <el-option
-                v-for="option of item.queryStyle.options"
+                v-for="option of item.style.options"
                 :key="option.name"
                 :label="option.name"
                 :value="option.value"
               />
             </el-select>
           </template>
-          <template v-else-if="item.queryStyle && item.queryStyle.type === 'switch'">
+          <template v-else-if="item.style && item.style.type === 'switch'">
             <el-switch
               v-model="queryParams[item.name]"
               :active-value="1"
@@ -51,7 +51,7 @@
           <template v-else>
             <el-input
               v-model="queryParams[item.name]"
-              :placeholder="item.placeholder"
+              :placeholder="item.style.placeholder"
               clearable
             />
           </template>
@@ -65,13 +65,12 @@
 import {inject, ref} from 'vue';
 
 defineProps({
-  items: Array
+  data: Object
 })
 
 const formRef = ref()
 const queryParams = ref({})
 const repository = inject("repository")
-
 
 const handleSearchList = () => {
   repository.queryParams = queryParams

@@ -6,7 +6,7 @@
   >
     <el-form :model="editForm" :rules="getEditFormRules()" ref="editFormRef" label-width="70px">
       <el-form-item
-        v-for="item in items"
+        v-for="item in data.baseForm.items"
         :key="item.name"
         :label="item.label"
       >
@@ -48,7 +48,7 @@
 import {inject, ref} from 'vue';
 
 const props = defineProps({
-  items: Array
+  data: Object
 })
 
 const repository = inject('repository')
@@ -59,7 +59,7 @@ const editFormRef = ref()
 //动态表单校验规则
 const getEditFormRules = () => {
   let editFormRules = {}
-  for (let item in props.items){
+  for (let item in props.data.baseForm.items){
     if (item.editStyle && item.editStyle.rule){
       editFormRules[item.name] = {required: true, validator: item.editStyle.rule.validator, trigger: 'blur'}
     }
@@ -80,8 +80,6 @@ const handleEditUserInfo = () => {
       this.$message.success('更新用户信息成功！')
     })
     editDialogVisible.value = false
-
-
   })
 }
 defineExpose({

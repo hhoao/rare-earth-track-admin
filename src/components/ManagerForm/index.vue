@@ -1,12 +1,11 @@
 <template>
   <div>
     <el-card>
-      <template v-if="props.items">
-        <query-form ref="queryFormRef" :items="items" />
+      <template v-if="data.listForm && data.listForm.items">
+        <query-form ref="queryFormRef" :data="data.queryForm" />
         <list-table
           ref="listTableRef"
-          :items="items"
-          :deleteItem="props.deleteItem"
+          :data="data.listForm"
         />
       </template>
       <div>
@@ -25,16 +24,14 @@
 </template>
 
 <script setup>
-import {provide, reactive, ref, toRef, toRefs, watch} from 'vue';
+import {provide, reactive, ref, toRef} from 'vue';
 import ListTable from './ListTable';
 import QueryForm from './QueryForm';
 
 //初始化熟悉
 const props = defineProps({
   items: Array,
-  getList: Function,
-  updateItem: Function,
-  deleteItem: Function
+  data: Object,
 })
 const page = reactive({
   total: 0,
@@ -42,36 +39,33 @@ const page = reactive({
   pageSize: 5,
 });
 
-//配置项
-const config = reactive({
-  enable: false,
-})
-//需要展示的熟悉
-const showItems = ref()
 //获取List函数 用来获取表格数据
-const getList = toRef(props, 'getList')
-//需要查询的项目
-const queryItems = ref()
-//查询参数
+const data = toRef(props, 'data');
 const queryParams = ref({})
-const refreshList = ref()
 //公用仓库
 const repository = reactive({
+  //表格数据
   list: [],
-  getList: ()=>{},
-  queryParams,
-  refreshList,
-  updateItem: toRef(props, 'updateItem'),
-  deleteItem: toRef(props, 'deleteItem'),
+  //查询参数
+  queryParams: [],
+  //刷新list
+  refreshList: ()=>{},
+  //配置
+  config: {
+    autoRefresh: true,
+  },
 })
 
-repository.queryParams = queryParams
-refreshList.value=()=>{
-  if (getList.value != null) {
-    getList.value()
+repository.refreshList=()=>{
+  let promise = props.data.listForm.handler({page, queryParams});
+  if (promise && promise instanceof Promise){
+    promise.then((ret)=>{
+      repository.list = ret.list
+      page.total = ret.page.total
+    })
   }
 }
-
+repository.refreshList()
 provide('repository', repository)
 
 //Ref
@@ -87,19 +81,8 @@ const handleCurrentChange = (newPage) => {
   repository.refreshList();
 };
 
-//enable发生变化时自动获取数据
-watch(()=>props.getList, ()=>{
-  if (getList.value){
-    refreshList.value()
-  }
-})
-
-
 defineExpose({
   page: page,
-  config,
-  showItems,
-  queryItems,
   queryParams,
   repository
 })
