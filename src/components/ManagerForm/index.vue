@@ -41,13 +41,12 @@ const page = reactive({
 
 //获取List函数 用来获取表格数据
 const data = toRef(props, 'data');
-const queryParams = ref({})
 //公用仓库
 const repository = reactive({
   //表格数据
   list: [],
   //查询参数
-  queryParams: [],
+  queryParams: ref({}),
   //刷新list
   refreshList: ()=>{},
   //配置
@@ -57,7 +56,7 @@ const repository = reactive({
 })
 
 repository.refreshList=()=>{
-  let promise = props.data.listForm.handler({page, queryParams});
+  let promise = props.data.listForm.handler({page, queryParams: repository.queryParams});
   if (promise && promise instanceof Promise){
     promise.then((ret)=>{
       repository.list = ret.list
@@ -83,7 +82,6 @@ const handleCurrentChange = (newPage) => {
 
 defineExpose({
   page: page,
-  queryParams,
   repository
 })
 
