@@ -6,7 +6,7 @@ const user = {
     token: getToken(),
     name: '',
     avatar: '',
-    roleId: '',
+    roleId: null,
   },
 
   mutations: {
@@ -64,7 +64,7 @@ const user = {
       return new Promise((resolve, reject) => {
         logout(state.token).then(() => {
           commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
+          commit('SET_ROLE_ID', null)
           removeToken()
           resolve()
         }).catch(error => {

@@ -79,8 +79,6 @@ export default {
         GenerateRoutes({commit}, menus) {
             return new Promise(resolve => {
                 const accessedRouters = asyncRouterMap.filter(v => {
-                    //admin帐号直接返回所有菜单
-                    // if(username==='admin') return true;
                     if (hasPermission(menus, v)) {
                         if (v.children && v.children.length > 0) {
                             v.children = v.children.filter(child => {

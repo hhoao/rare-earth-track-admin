@@ -6,7 +6,7 @@ import {ElMessage} from 'element-plus'
 import {getToken} from '@/utils/auth'
 import {getUserMenus} from "@/api/user";
 
-const whiteList = ['/login']//, '/', '', '/index', '/home', '/ums', '/ums/user'] // 不重定向白名单
+const whiteList = ['/login'] // 不重定向白名单
 router.beforeEach((to, from, next) => {
     NProgress.start()
     if (getToken()) {
@@ -14,7 +14,8 @@ router.beforeEach((to, from, next) => {
             next({path: '/'})
             NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
         } else {
-            if (!store.getters.roleId) {
+          //判断是否已经登陆
+            if (store.getters.roleId == null) {
                 getUserMenus()
                     .then(menuRes => {
                         let menus = menuRes.data;
@@ -22,12 +23,12 @@ router.beforeEach((to, from, next) => {
                             throw "普通用户无法登陆后台";
                         } else {
                             store.dispatch('GetInfo')
-                                .then(store.dispatch('GenerateRoutes', menus)
+                                .then(async ()=>await store.dispatch('GenerateRoutes', menus)
                                     .then(() => { // 生成可访问的路由表
                                         for (let newRouter of store.getters.addRouters){
                                             router.addRoute(newRouter)
                                         }
-                                        next();
+                                        router.replace(to.path)
                                     })
                                 )
                         }

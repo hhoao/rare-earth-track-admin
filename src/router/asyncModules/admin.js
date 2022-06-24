@@ -56,6 +56,12 @@ export default [
                 meta: {title: '产品列表', icon: 'product-list'},
                 hidden: false,
             },
+            {
+                name: 'factory',
+                path: 'factory',
+                component: () => import('@/views/pms/factory'),
+                meta: {title: '工厂列表', icon: 'factory-list'}
+            }
         ]
     },
 ]
