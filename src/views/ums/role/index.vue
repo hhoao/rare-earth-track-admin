@@ -6,21 +6,24 @@
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
-import {deleteResource, listResources, updateResource} from '@/api/resource';
+import {deleteRole, listRoles, updateRole} from '@/api/role';
 
-const updateHandler = ref((data)=>{
-  return updateResource(data)
-})
-const deleteHandler = ref((data)=>{
-  return deleteResource(data.name);
-})
-const getListHandler = async ({page, queryParams})=>{
-  let response =  await listResources({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams)
-  let retPage = {}
+const updateHandler = ref((data) => {
+  return updateRole(data);
+});
+const deleteHandler = ref((data) => {
+  return deleteRole(data.name);
+});
+const getListHandler = async ({page, queryParams}) => {
+  let response = await listRoles({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams);
+  let retPage = {};
   retPage.total = response.data.total;
-  return {page: retPage, list: response.data.list}
-}
-
+  return {page: retPage, list: response.data.list};
+};
+const allStatus = [
+  {value: '0', name: 'False'},
+  {value: '1', name: 'True'},
+];
 const managerFormData = ref({
   queryForm: {
     items: [
@@ -35,14 +38,14 @@ const managerFormData = ref({
         style: {placeholder: '名称'},
       },
       {
-        label: '方法',
-        name: 'method',
-        style: {placeholder: '方法'},
+        label: '描述',
+        name: 'description',
+        style: {placeholder: '描述'},
       },
       {
-        label: 'url',
-        name: 'url',
-        style: {placeholder: 'url'},
+        label: '是否启用',
+        name: 'status',
+        style: {type: 'select', options: allStatus},
       },
     ],
   },
@@ -57,12 +60,12 @@ const managerFormData = ref({
         name: 'name',
       },
       {
-        label: '方法',
-        name: 'method',
+        label: '描述',
+        name: 'description',
       },
       {
-        label: 'url',
-        name: 'url',
+        label: '是否启用',
+        name: 'status',
       },
     ],
     handler: getListHandler,
@@ -82,27 +85,26 @@ const managerFormData = ref({
             style: {placeholder: '名称'},
           },
           {
-            label: '方法',
-            name: 'method',
-            style: {placeholder: '方法'},
+            label: '描述',
+            name: 'description',
+            style: {placeholder: '描述'},
           },
           {
-            label: 'url',
-            name: 'url',
-            style: {placeholder: 'url'},
+            label: '是否启用',
+            name: 'status',
+            style: {type: 'select', options: allStatus},
           },
         ],
-        handler: updateHandler
+        handler: updateHandler,
       },
       {
         label: '删除',
         type: 'danger',
-        handler: deleteHandler
+        handler: deleteHandler,
       },
     ],
   },
 });
-
 
 
 </script>

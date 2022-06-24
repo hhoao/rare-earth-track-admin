@@ -51,7 +51,7 @@
           <template v-else>
             <el-input
               v-model="queryParams[item.name]"
-              :placeholder="item.style.placeholder"
+              :placeholder="(item.style && item.style.placeholder) ? item.style.placeholder : ''"
               clearable
             />
           </template>
