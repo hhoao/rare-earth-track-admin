@@ -11,3 +11,6 @@
 后端代码: 
 * gitee: https://gitee.com/hhoao/rare-earth-track
 * github: https://github.com/HHoao/RETrack
+
+如何运行:
+* 修改.dev.development文件中的 VUE_APP_BASE_API 为自己的后端url就好了

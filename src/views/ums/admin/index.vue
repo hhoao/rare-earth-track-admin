@@ -115,6 +115,9 @@ const managerFormData = ref({
       },
     ],
     handler: getListHandler,
+    operationStyle: {
+      width: 220,
+    },
     operations: [
       {
         label: '编辑',

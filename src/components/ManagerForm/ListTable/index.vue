@@ -25,6 +25,8 @@
       <el-table-column
         v-if="data.operations"
         label="操作"
+        :width="(data.operationStyle && data.operationStyle.width) ? data.operationStyle.width : ''"
+        align="center"
       >
         <template #default="tableData">
           <el-button
