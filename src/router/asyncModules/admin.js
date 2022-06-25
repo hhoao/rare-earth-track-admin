@@ -63,4 +63,21 @@ export default [
             }
         ]
     },
+    {
+        name: 'sms',
+        path: '/sms',
+        redirect: '/sms/feedback',
+        component: Layout,
+        meta: {title: '营销', icon: 'sms'},
+        hidden: false,
+        children: [
+            {
+                name: 'feedback',
+                path: 'feedback',
+                component: () => import('@/views/sms/feedback'),
+                meta: {title: '反馈', icon: 'sms-feedback'},
+                hidden: false,
+            },
+        ]
+    }
 ]
