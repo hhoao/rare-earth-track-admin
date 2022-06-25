@@ -6,7 +6,6 @@ import store from './store'
 import '@/styles/index.scss' // global css
 import '@/assets/fonts/iconfont.css'
 import icons from '@/icons'
-import '@/assets/css/global.css'
 import '@/permission.js'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'

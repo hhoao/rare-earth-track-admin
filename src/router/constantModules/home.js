@@ -1,9 +1,9 @@
-import Layout from '@/views/layout/Layout';
-
+import Layout from "@/components/Layout";
+import {shallowRef} from 'vue';
 export default [
   {
     path: '',
-    component: Layout,
+    component: shallowRef(Layout),
     redirect: '/home',
     hidden: true,
     children: [

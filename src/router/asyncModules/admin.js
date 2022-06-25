@@ -1,11 +1,11 @@
-import Layout from "@/views/layout/Layout";
-
+import Layout from "@/components/Layout";
+import {markRaw, shallowRef} from 'vue';
+// const Layout = markRaw(LayoutReactive)
 export default [
-    //      后台管理界面的用户管理
     {
         name: 'ums',
         path: '/ums',
-        component: Layout,
+        component: shallowRef(Layout),
         redirect: '/ums/admin',
         meta: {title: '用户', icon: 'ums'},
         hidden: false,
@@ -45,7 +45,7 @@ export default [
         name: 'pms',
         path: '/pms',
         redirect: '/pms/product',
-        component: Layout,
+        component: shallowRef(Layout),
         meta: {title: '产品', icon: 'product'},
         hidden: false,
         children: [
