@@ -9,6 +9,7 @@ import icons from '@/icons'
 import '@/permission.js'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import 'default-passive-events'
 const app = createApp(App);
 
 app.use(icons)
