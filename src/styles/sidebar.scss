@@ -51,17 +51,21 @@
       }
     }
     .el-menu-item {
-      display: block;
-      padding-left: 10px !important;
-      &>span {
-        height: 0;
-        width: 0;
-        overflow: hidden;
-        visibility: hidden;
-        display: inline-block
-      }
-      .el-sub-menu__icon-arrow {
-        display: none;
+      &>.el-menu-tooltip__trigger {
+        display: block;
+        padding-left: 10px !important;
+
+        & > span {
+          height: 0;
+          width: 0;
+          overflow: hidden;
+          visibility: hidden;
+          display: inline-block
+        }
+
+        .el-sub-menu__icon-arrow {
+          display: none;
+        }
       }
     }
     .el-sub-menu {

@@ -1,11 +1,10 @@
 import Layout from "@/components/Layout";
-import {markRaw, shallowRef} from 'vue';
-// const Layout = markRaw(LayoutReactive)
+
 export default [
     {
         name: 'ums',
         path: '/ums',
-        component: shallowRef(Layout),
+        component: Layout,
         redirect: '/ums/admin',
         meta: {title: '用户', icon: 'ums'},
         hidden: false,
@@ -45,7 +44,7 @@ export default [
         name: 'pms',
         path: '/pms',
         redirect: '/pms/product',
-        component: shallowRef(Layout),
+        component: Layout,
         meta: {title: '产品', icon: 'product'},
         hidden: false,
         children: [

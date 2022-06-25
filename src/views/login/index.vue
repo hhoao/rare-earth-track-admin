@@ -1,4 +1,3 @@
-<!-- 用户登录组件 -->
 <template>
   <div class="container_box">
     <div class="container">

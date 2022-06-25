@@ -1,13 +1,14 @@
 <template>
   <svg :class="svgClass" aria-hidden="true">
-    <use :xlink:href="iconName"></use>
+    <use :xlink:href="iconName" />
   </svg>
 </template>
 
 <script>
-import { ref, reactive, onMounted, computed, getCurrentInstance } from "vue";
+import {computed} from 'vue';
+
 export default {
-  name: 'svg-icon',
+  name: 'SvgIcon',
   props: {
     iconClass: {
       type: String,
@@ -17,8 +18,7 @@ export default {
       type: String
     }
   },
-  setup(initProps, setupContext) {
-    const ctx = getCurrentInstance();
+  setup(initProps) {
     const iconName = computed(() => {
       return `#icon-${initProps.iconClass}`;
     });

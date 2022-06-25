@@ -1,5 +1,5 @@
 <template>
-  <el-menu>
+  <div>
     <template v-for="item in routes">
       <template v-if="item.children">
         <el-sub-menu v-if="!item.hidden" :key="item.name" :index="item.name">
@@ -21,7 +21,7 @@
           :to="(basePath ? basePath : '') + '/'+ item.path"
           :key="item.name">
           <el-menu-item
-            :index="(basePath ? basePath : '') + '/'+ item.path+'/'+item.path"
+            :index="(basePath ? basePath : '') + '/'+ item.path"
             :style="'padding-left:' +curIndent+'px'+';'">
             <svg-icon
               v-if="item.meta && item.meta.icon"
@@ -35,7 +35,7 @@
         </router-link>
       </template>
     </template>
-  </el-menu>
+  </div>
 </template>
 
 <script setup>
