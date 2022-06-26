@@ -6,10 +6,13 @@
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
-import {deleteProduct, listProducts, updateProduct} from '@/api/product';
+import {addProduct, deleteProduct, listProducts, updateProduct} from '@/api/product';
 
 const updateHandler = ref((data) => {
   return updateProduct(data);
+});
+const addHandler = ref((data) => {
+  return addProduct(data);
 });
 const deleteHandler = ref((data) => {
   return deleteProduct(data.name);
@@ -29,6 +32,21 @@ const managerFormData = ref({
         name: 'id',
         style: {placeholder: 'id号'},
       },
+      {
+        label: '名称',
+        name: 'name',
+        style: {placeholder: '名称'},
+      },
+      {
+        label: '批次',
+        name: 'batchId',
+        style: {placeholder: '批次'}
+      },
+    ],
+  },
+  addForm: {
+    title: '添加产品',
+    items: [
       {
         label: '名称',
         name: 'name',

@@ -6,10 +6,13 @@
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
-import {deleteResource, listResources, updateResource} from '@/api/resource';
+import {addResource, deleteResource, listResources, updateResource} from '@/api/resource';
 
 const updateHandler = ref((data)=>{
   return updateResource(data)
+})
+const addHandler = ref((data) => {
+  return addResource(data);
 })
 const deleteHandler = ref((data)=>{
   return deleteResource(data.name);
@@ -45,6 +48,27 @@ const managerFormData = ref({
         style: {placeholder: 'url'},
       },
     ],
+  },
+  addForm: {
+    title: '添加资源',
+    items: [
+      {
+        label: '名称',
+        name: 'name',
+        style: {placeholder: '名称'},
+      },
+      {
+        label: '方法',
+        name: 'method',
+        style: {placeholder: '方法'},
+      },
+      {
+        label: 'url',
+        name: 'url',
+        style: {placeholder: 'url'},
+      },
+    ],
+    handler: addHandler,
   },
   listForm: {
     items: [

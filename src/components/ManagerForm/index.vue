@@ -5,12 +5,14 @@
       <div style="margin-top: 20px">
         <el-card shadow="never">
           <div class="card-header">
-            <span>数据列表</span>
+            <svg-icon icon-class="list" />
+            <span style="margin-left: 5px">数据列表</span>
             <template v-if="data.addForm && data.addForm.items">
               <el-button
                 :type="data.addForm.type ? data.addForm.type : 'default'"
                 :size="data.addForm.size ? data.addForm.size : 'default'"
                 @click="addFormRef.showDialog()"
+                style="float: right;margin-right: 15px"
               > 添加
               </el-button>
             </template>
@@ -48,6 +50,7 @@ import {provide, reactive, ref, toRef} from 'vue';
 import ListTable from './ListTable';
 import QueryForm from './QueryForm';
 import OperationForm from './OperationForm'
+import SvgIcon from '@/components/SvgIcon';
 
 //初始化熟悉
 const props = defineProps({
@@ -113,9 +116,5 @@ defineExpose({
 .app-container {
   padding: 20px;
 }
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 </style>

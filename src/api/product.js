@@ -7,7 +7,13 @@ export function listProducts(pageInfo, product) {
     params: Object.assign(pageInfo, product)
   })
 }
-
+export function addProduct(product) {
+  return request({
+    url: `roles`,
+    method: 'post',
+    data: product
+  })
+}
 export function updateProduct(product) {
   return request({
     url: '/products',

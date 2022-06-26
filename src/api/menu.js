@@ -6,7 +6,7 @@ export const listMenus = (queryParams, pageInfo) =>{
     params: Object.assign(queryParams, pageInfo)
   })
 }
-export const addMenus = (newMenu) => {
+export const addMenu = (newMenu) => {
   return request({
     url: "/menus",
     method: "post",

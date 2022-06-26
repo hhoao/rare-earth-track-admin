@@ -8,6 +8,13 @@ export function listFeedbacks(pageInfo, feedback) {
   })
 }
 
+export function addFeedback(feedback) {
+  return request({
+    url: `feedbacks`,
+    method: 'post',
+    data: feedback
+  })
+}
 export function updateFeedback(feedback) {
   return request({
     url: '/feedbacks',

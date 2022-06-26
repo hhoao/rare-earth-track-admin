@@ -6,11 +6,14 @@
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
-import {deleteFeedback, listFeedbacks, updateFeedback} from '@/api/feedback';
+import {addFeedback, deleteFeedback, listFeedbacks, updateFeedback} from '@/api/feedback';
 
 const updateHandler = ref((data) => {
   return updateFeedback(data);
 });
+const addHandler = ref((data) => {
+  return addFeedback(data);
+})
 const deleteHandler = ref((data) => {
   return deleteFeedback(data.name);
 });
@@ -48,6 +51,27 @@ const managerFormData = ref({
         style: {type: 'select', options: allStatus},
       },
     ],
+  },
+  addForm: {
+    title: '添加反馈信息',
+    items: [
+      {
+        label: 'title',
+        name: '标题',
+        style: {placeholder: '标题'},
+      },
+      {
+        label: '类型',
+        name: 'type',
+        style: {placeholder: '类型'}
+      },
+      {
+        label: '是否启用',
+        name: 'status',
+        style: {type: 'select', options: allStatus},
+      },
+    ],
+    handler: addHandler,
   },
   listForm: {
     items: [

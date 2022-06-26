@@ -6,7 +6,7 @@
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
-import {deleteFactory, listFactories, updateFactory} from '@/api/factory';
+import {addFactory, deleteFactory, listFactories, updateFactory} from '@/api/factory';
 
 const updateHandler = ref((data) => {
   return updateFactory(data);
@@ -14,6 +14,9 @@ const updateHandler = ref((data) => {
 const deleteHandler = ref((data) => {
   return deleteFactory(data.name);
 });
+const addHandler = ref((data) => {
+  return addFactory(data);
+})
 const getListHandler = async ({page, queryParams}) => {
   let response = await listFactories({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams);
   let retPage = {};
@@ -50,6 +53,32 @@ const managerFormData = ref({
         style: {placeholder: '地址'}
       },
     ],
+  },
+  addForm: {
+    title: '添加工厂',
+    items: [
+      {
+        label: '名称',
+        name: 'name',
+        style: {placeholder: '名称'},
+      },
+      {
+        label: '手机号',
+        name: 'phone',
+        style: {placeholder: '手机号'}
+      },
+      {
+        label: '邮箱',
+        name: 'email',
+        style: {placeholder: '邮箱'}
+      },
+      {
+        label: '地址',
+        name: 'address',
+        style: {placeholder: '地址'}
+      }
+    ],
+    handler: addHandler,
   },
   listForm: {
     items: [

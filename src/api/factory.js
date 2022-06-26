@@ -7,7 +7,13 @@ export function listFactories(pageInfo, factory) {
     params: Object.assign(pageInfo, factory)
   })
 }
-
+export function addFactory(factory) {
+  return request({
+    url: `factories`,
+    method: 'post',
+    data: factory
+  })
+}
 export function updateFactory(factory) {
   return request({
     url: '/factories',

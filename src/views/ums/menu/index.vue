@@ -6,10 +6,13 @@
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
-import {deleteMenu, listMenus, updateMenu} from '@/api/menu';
+import {addMenu, deleteMenu, listMenus, updateMenu} from '@/api/menu';
 
 const menuUpdateHandler = ref((data)=>{
   return updateMenu(data.name, data)
+})
+const addHandler = ref((data) => {
+  return addMenu(data)
 })
 const deleteMenuHandler = ref((data)=>{
   return deleteMenu(data.name);
@@ -54,6 +57,27 @@ const managerFormData = ref({
         style: {type: 'select', options: allHidden},
       },
     ],
+  },
+  addForm: {
+    title: '添加菜单',
+    items: [
+      {
+        label: '名称',
+        name: 'name',
+        style: {placeholder: '姓名'},
+      },
+      {
+        label: '标题',
+        name: 'title',
+        style: {placeholder: '姓名'},
+      },
+      {
+        label: '隐藏',
+        name: 'hidden',
+        style: {type: 'select', options: allHidden},
+      },
+    ],
+    handler: addHandler,
   },
   listForm: {
     items: [
