@@ -1,3 +1,4 @@
+@import 'variables';
 #app {
   // 主体区域
   .main-container {
@@ -85,7 +86,11 @@
       }
     }
   }
-  .sidebar-container .nest-menu .el-sub-menu>.el-sub-menu__title,
+  .sidebar-container .el-sub-menu>.el-sub-menu__title{
+    &:hover {
+      background-color: $el-sub-menu__titleBg !important;
+    }
+  }
   .sidebar-container .el-sub-menu .el-menu-item {
     min-width: 180px !important;
     background-color: $subMenuBg !important;

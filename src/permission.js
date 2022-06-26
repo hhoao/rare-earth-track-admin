@@ -23,7 +23,7 @@ router.beforeEach((to, from, next) => {
                             throw "普通用户无法登陆后台";
                         } else {
                             store.dispatch('GetInfo')
-                                .then(async ()=>await store.dispatch('GenerateRoutes', menus)
+                                .then(async ()=>await store.dispatch('GenerateRoutes', menus.list)
                                     .then(() => { // 生成可访问的路由表
                                         for (let newRouter of store.getters.addRouters){
                                             router.addRoute(newRouter)
