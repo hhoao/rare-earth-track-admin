@@ -80,6 +80,7 @@ const managerFormData = ref({
     handler: getListHandler,
     operations: [
       {
+        title: '修改菜单',
         label: '编辑',
         type: 'primary',
         items: [

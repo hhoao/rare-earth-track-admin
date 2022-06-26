@@ -120,6 +120,7 @@ const managerFormData = ref({
     },
     operations: [
       {
+        title: '修改用户',
         label: '编辑',
         type: 'primary',
         items: [

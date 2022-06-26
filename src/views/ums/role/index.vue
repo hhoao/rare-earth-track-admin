@@ -90,6 +90,7 @@ const managerFormData = ref({
     handler: getListHandler,
     operations: [
       {
+        title: '修改角色',
         label: '编辑',
         type: 'primary',
         items: [

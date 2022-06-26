@@ -4,7 +4,7 @@
     v-model="operationDialogVisible"
     width="50%"
   >
-    <el-form :model="operationForm" :rules="getFormRules()" ref="FormRef" label-width="70px">
+    <el-form :model="operationForm" :rules="getFormRules()" ref="FormRef" label-width="80px">
       <el-form-item
         v-for="item in data.items"
         :key="item.name"
