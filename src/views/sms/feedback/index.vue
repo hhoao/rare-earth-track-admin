@@ -16,7 +16,6 @@ const deleteHandler = ref((data) => {
 });
 const getListHandler = async ({page, queryParams}) => {
   let response = await listFeedbacks({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams);
-  console.log(response)
   let retPage = {};
   retPage.total = response.data.total;
   return {page: retPage, list: response.data.list};
@@ -78,7 +77,7 @@ const managerFormData = ref({
           {
             label: 'id',
             name: 'id',
-            style: {placeholder: 'id号'},
+            style: {placeholder: 'id号', isDisable: true},
           },
           {
             label: 'title',
