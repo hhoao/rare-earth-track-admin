@@ -2,6 +2,7 @@
   <div>
     <el-table
       :data="repository.list"
+      style="margin-top: 20px"
       stripe
       border
     >

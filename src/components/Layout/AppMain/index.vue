@@ -12,3 +12,8 @@
 
 <script setup>
 </script>
+<style lang="scss">
+.app-main{
+  min-height: 100%
+}
+</style>

@@ -8,7 +8,7 @@
       <el-form-item
         v-for="item in data.items"
         :key="item.name"
-        :label="item.label"
+        :label="item.label + ': '"
       >
         <template v-if="item.style && item.style.type === 'select'">
           <el-select v-model="operationForm[item.name]">
@@ -69,7 +69,9 @@ const getFormRules = () => {
   return operationFormRules;
 };
 const showDialog = (item) => {
-  operationForm.value = item;
+  if (item) {
+    operationForm.value = item;
+  }
   operationDialogVisible.value = true;
 };
 const handleOperation = (handlerProxy) => {

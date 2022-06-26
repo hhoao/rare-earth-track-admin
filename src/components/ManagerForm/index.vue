@@ -1,25 +1,45 @@
 <template>
   <div class="app-container">
-    <el-card class="filter-container" shadow="never">
-      <template v-if="data.listForm && data.listForm.items">
-        <query-form ref="queryFormRef" :data="data.queryForm" />
-        <list-table
-          ref="listTableRef"
-          :data="data.listForm"
-        />
-      </template>
-      <div>
-        <el-pagination
-          :current-page="page.pageNum"
-          :page-sizes="[1, 2, 5, 10]"
-          :page-size="page.pageSize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="page.total"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
+    <template v-if="data.listForm && data.listForm.items">
+      <query-form ref="queryFormRef" :data="data.queryForm" />
+      <div style="margin-top: 20px">
+        <el-card shadow="never">
+          <div class="card-header">
+            <span>数据列表</span>
+            <template v-if="data.addForm && data.addForm.items">
+              <el-button
+                :type="data.addForm.type ? data.addForm.type : 'default'"
+                :size="data.addForm.size ? data.addForm.size : 'default'"
+                @click="addFormRef.showDialog()"
+              > 添加
+              </el-button>
+            </template>
+          </div>
+        </el-card>
       </div>
-    </el-card>
+      <list-table
+        style="margin-top: 20px"
+        ref="listTableRef"
+        :data="data.listForm"
+      />
+    </template>
+    <div style="margin-top: 20px">
+      <el-pagination
+        :current-page="page.pageNum"
+        :page-sizes="[1, 2, 5, 10]"
+        :page-size="page.pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="page.total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
+    </div>
+    <template v-if="data.addForm && data.addForm.items">
+      <operation-form
+        ref="addFormRef"
+        :data="data.addForm"
+      />
+    </template>
   </div>
 </template>
 
@@ -27,6 +47,7 @@
 import {provide, reactive, ref, toRef} from 'vue';
 import ListTable from './ListTable';
 import QueryForm from './QueryForm';
+import OperationForm from './OperationForm'
 
 //初始化熟悉
 const props = defineProps({
@@ -68,8 +89,9 @@ repository.refreshList()
 provide('repository', repository)
 
 //Ref
-const listTableRef = ref()
-const queryFormRef = ref()
+const addFormRef = ref(null)
+const listTableRef = ref(null)
+const queryFormRef = ref(null)
 
 const handleSizeChange = (newSize) => {
   page.pageSize = newSize;
@@ -88,5 +110,12 @@ defineExpose({
 </script>
 
 <style scoped>
-
+.app-container {
+  padding: 20px;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 </style>

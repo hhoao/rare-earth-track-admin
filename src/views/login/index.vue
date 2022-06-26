@@ -136,15 +136,6 @@ body,
 
 
 //-------------
-
-
-.clearfix::after,
-.clearfix::before {
-  content: "";
-  display: table;
-  clear: both;
-}
-
 .login_con {
   width: 100%;
   background-color: #d9caac;

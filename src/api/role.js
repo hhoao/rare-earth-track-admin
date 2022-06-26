@@ -24,9 +24,16 @@ export function updateRole(role) {
     data: role
   })
 }
+export function addRole(role) {
+  return request({
+    url: `roles`,
+    method: 'post',
+    data: role
+  })
+}
 export function deleteRole(roleName) {
   return request({
-    url: `users/${roleName}`,
+    url: `roles/${roleName}`,
     method: 'delete'
   })
 }

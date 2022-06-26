@@ -6,7 +6,7 @@
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
-import {deleteRole, listRoles, updateRole} from '@/api/role';
+import {addRole, deleteRole, listRoles, updateRole} from '@/api/role';
 
 const updateHandler = ref((data) => {
   return updateRole(data);
@@ -20,6 +20,9 @@ const getListHandler = async ({page, queryParams}) => {
   retPage.total = response.data.total;
   return {page: retPage, list: response.data.list};
 };
+const addRoleHandler = ref((data)=>{
+  return addRole(data)
+})
 const allStatus = [
   {value: '0', name: 'False'},
   {value: '1', name: 'True'},
@@ -48,6 +51,22 @@ const managerFormData = ref({
         style: {type: 'select', options: allStatus},
       },
     ],
+  },
+  addForm: {
+    title: '添加角色',
+    items: [
+      {
+        label: '名称',
+        name: 'name',
+        style: {placeholder: '名称'},
+      },
+      {
+        label: '描述',
+        name: 'description',
+        style: {placeholder: '描述'},
+      },
+    ],
+    handler: addRoleHandler
   },
   listForm: {
     items: [
