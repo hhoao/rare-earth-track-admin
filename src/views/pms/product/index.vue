@@ -58,6 +58,7 @@ const managerFormData = ref({
         style: {placeholder: '批次'}
       },
     ],
+    handler: addHandler
   },
   listForm: {
     items: [

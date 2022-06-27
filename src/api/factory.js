@@ -23,7 +23,7 @@ export function updateFactory(factory) {
 }
 export function deleteFactory(factoryName) {
   return request({
-    url: `users/${factoryName}`,
+    url: `factories/${factoryName}`,
     method: 'delete'
   })
 }

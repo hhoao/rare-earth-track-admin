@@ -9,7 +9,7 @@ export function listProducts(pageInfo, product) {
 }
 export function addProduct(product) {
   return request({
-    url: `roles`,
+    url: `products`,
     method: 'post',
     data: product
   })
@@ -23,7 +23,7 @@ export function updateProduct(product) {
 }
 export function deleteProduct(productName) {
   return request({
-    url: `users/${productName}`,
+    url: `products/${productName}`,
     method: 'delete'
   })
 }

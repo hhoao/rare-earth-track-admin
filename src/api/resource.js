@@ -23,7 +23,7 @@ export function updateResource(resource) {
 }
 export function deleteResource(resourceName) {
   return request({
-    url: `users/${resourceName}`,
+    url: `resources/${resourceName}`,
     method: 'delete'
   })
 }

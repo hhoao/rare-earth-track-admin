@@ -24,7 +24,7 @@ export function updateFeedback(feedback) {
 }
 export function deleteFeedback(feedbackName) {
   return request({
-    url: `users/${feedbackName}`,
+    url: `feedbacks/${feedbackName}`,
     method: 'delete'
   })
 }
