@@ -10,7 +10,7 @@ import {addRole, deleteRole, listRoles, updateRole} from '@/api/role';
 
 const updateHandler = ref((data) => {
   return updateRole(data);
-});
+})
 const deleteHandler = ref((data) => {
   return deleteRole(data.name);
 });

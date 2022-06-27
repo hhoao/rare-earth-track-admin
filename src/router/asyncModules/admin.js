@@ -56,11 +56,12 @@ export default [
                 hidden: false,
             },
             {
-                name: 'factory',
-                path: 'factory',
-                component: () => import('@/views/pms/factory'),
-                meta: {title: '工厂列表', icon: 'factory-list'}
-            }
+                name: 'material',
+                path: 'material',
+                component: () => import('@/views/pms/material'),
+                meta: {title: '材料列表', icon: 'pms-material'},
+                hidden: false,
+            },
         ]
     },
     {
@@ -78,6 +79,45 @@ export default [
                 meta: {title: '反馈', icon: 'sms-feedback'},
                 hidden: false,
             },
+        ]
+    },
+    {
+        name: 'fms',
+        path: '/fms',
+        redirect: '/fms/factory',
+        component: Layout,
+        meta: {title: '工厂', icon: 'fms'},
+        hidden: false,
+        children: [
+            {
+                name: 'factory',
+                path: 'factory',
+                component: () => import('@/views/fms/factory'),
+                meta: {title: '工厂列表', icon: 'fms-factory'},
+                hidden: false,
+            },
+            {
+                name: 'member',
+                path: 'member',
+                component: () => import('@/views/fms/member'),
+                meta: {title: '成员列表', icon: 'fms-member'},
+                hidden: false,
+            },
+            {
+                name: 'job',
+                path: 'job',
+                component: () => import('@/views/fms/job'),
+                meta: {title: '职位列表', icon: 'fms-job'},
+                hidden: false,
+            },
+
+            {
+                name: 'permission',
+                path: 'permission',
+                component: () => import('@/views/fms/permission'),
+                meta: {title: '权限列表', icon: 'fms-permission'},
+                hidden: false,
+            }
         ]
     }
 ]
