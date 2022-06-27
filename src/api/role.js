@@ -19,7 +19,7 @@ export function listRoles(pageInfo, role) {
 
 export function updateRole(role) {
   return request({
-    url: '/roles',
+    url: `/roles/${role.name}`,
     method: 'patch',
     data: role
   })

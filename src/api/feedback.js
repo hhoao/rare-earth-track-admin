@@ -17,7 +17,7 @@ export function addFeedback(feedback) {
 }
 export function updateFeedback(feedback) {
   return request({
-    url: '/feedbacks',
+    url: `/feedbacks/${feedback.title}`,
     method: 'patch',
     data: feedback
   })

@@ -16,7 +16,7 @@ export function addResource(resource) {
 }
 export function updateResource(resource) {
   return request({
-    url: '/resources',
+    url: `/resources/${resource.name}`,
     method: 'patch',
     data: resource
   })

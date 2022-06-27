@@ -16,7 +16,7 @@ export function addFactory(factory) {
 }
 export function updateFactory(factory) {
   return request({
-    url: '/factories',
+    url: `/factories/${factory.name}`,
     method: 'patch',
     data: factory
   })
