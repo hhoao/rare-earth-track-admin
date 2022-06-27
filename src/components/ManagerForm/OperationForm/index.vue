@@ -30,7 +30,7 @@
         <template v-else>
           <el-input
             v-model="operationForm[item.name]"
-            :disabled="item.style.isDisable"
+            :disabled="item.style ? item.style.isDisable : false"
           />
         </template>
       </el-form-item>

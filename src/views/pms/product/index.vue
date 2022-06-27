@@ -33,6 +33,11 @@ const managerFormData = ref({
         style: {placeholder: 'id号'},
       },
       {
+        label: '工厂id',
+        name: 'factoryId',
+        style: {placeholder: '工厂id'},
+      },
+      {
         label: '名称',
         name: 'name',
         style: {placeholder: '名称'},
@@ -53,6 +58,11 @@ const managerFormData = ref({
         style: {placeholder: '名称'},
       },
       {
+        label: '工厂id',
+        name: 'factoryId',
+        style: {placeholder: '工厂id'},
+      },
+      {
         label: '批次',
         name: 'batchId',
         style: {placeholder: '批次'}
@@ -65,6 +75,10 @@ const managerFormData = ref({
       {
         label: 'id',
         name: 'id',
+      },
+      {
+        label: '工厂id',
+        name: 'factoryId',
       },
       {
         label: '名称',
@@ -86,6 +100,11 @@ const managerFormData = ref({
             label: 'id',
             name: 'id',
             style: {placeholder: 'id号', isDisable: true},
+          },
+          {
+            label: '工厂id',
+            name: 'factoryId',
+            style: {placeholder: '工厂id'},
           },
           {
             label: '名称',
