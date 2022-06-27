@@ -7,6 +7,7 @@
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
 import {addProduct, deleteProduct, listProducts, updateProduct} from '@/api/product';
+import {deleteMenu} from '@/api/menu';
 
 const updateHandler = ref((data) => {
   return updateProduct(data);
@@ -17,6 +18,11 @@ const addHandler = ref((data) => {
 const deleteHandler = ref((data) => {
   return deleteProduct(data.name);
 });
+const multiDeleteHandler = async(data)=>{
+  for (let product of data) {
+    await deleteProduct(product.name);
+  }
+}
 const getListHandler = async ({page, queryParams}) => {
   let response = await listProducts({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams);
   let retPage = {};
@@ -90,6 +96,12 @@ const managerFormData = ref({
       },
     ],
     handler: getListHandler,
+    multiOperations: [
+      {
+        label: '删除多个产品',
+        handler: multiDeleteHandler,
+      }
+    ],
     operations: [
       {
         title: '修改产品',

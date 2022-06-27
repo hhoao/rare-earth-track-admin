@@ -7,6 +7,7 @@
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
 import {addResource, deleteResource, listResources, updateResource} from '@/api/resource';
+import {deleteMenu} from '@/api/menu';
 
 const updateHandler = ref((data)=>{
   return updateResource(data)
@@ -17,6 +18,11 @@ const addHandler = ref((data) => {
 const deleteHandler = ref((data)=>{
   return deleteResource(data.name);
 })
+const multiDeleteHandler = async(data)=>{
+  for (let resource of data) {
+    await deleteResource(resource.name);
+  }
+}
 const getListHandler = async ({page, queryParams})=>{
   let response =  await listResources({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams)
   let retPage = {}
@@ -90,6 +96,12 @@ const managerFormData = ref({
       },
     ],
     handler: getListHandler,
+    multiOperations: [
+      {
+        label: '删除多个资源',
+        handler: multiDeleteHandler,
+      }
+    ],
     operations: [
       {
         title: '修改资源',

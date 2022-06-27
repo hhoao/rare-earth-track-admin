@@ -7,6 +7,7 @@
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
 import {addRole, deleteRole, listRoles, updateRole} from '@/api/role';
+import {deleteMenu} from '@/api/menu';
 
 const updateHandler = ref((data) => {
   return updateRole(data);
@@ -27,6 +28,11 @@ const allStatus = [
   {value: '0', name: 'False'},
   {value: '1', name: 'True'},
 ];
+const multiDeleteHandler = async(data)=>{
+  for (let role of data) {
+    await deleteRole(role.name);
+  }
+}
 const managerFormData = ref({
   queryForm: {
     items: [
@@ -122,6 +128,12 @@ const managerFormData = ref({
         type: 'danger',
         handler: deleteHandler,
       },
+    ],
+    multiOperations: [
+      {
+        label: '删除多个角色',
+        handler: multiDeleteHandler,
+      }
     ],
   },
 });

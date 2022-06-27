@@ -7,6 +7,7 @@
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
 import {addFactory, deleteFactory, listFactories, updateFactory} from '@/api/factory';
+import {deleteMenu} from '@/api/menu';
 
 const updateHandler = ref((data) => {
   return updateFactory(data);
@@ -14,6 +15,11 @@ const updateHandler = ref((data) => {
 const deleteHandler = ref((data) => {
   return deleteFactory(data.name);
 });
+const multiDeleteHandler = async(data)=>{
+  for (let factory of data) {
+    await deleteFactory(factory.name);
+  }
+}
 const addHandler = ref((data) => {
   return addFactory(data);
 })
@@ -104,6 +110,12 @@ const managerFormData = ref({
       },
     ],
     handler: getListHandler,
+    multiOperations: [
+      {
+        label: '删除多个工厂',
+        handler: multiDeleteHandler,
+      }
+    ],
     operations: [
       {
         title: '修改资料',

@@ -54,7 +54,7 @@
     />
     <div style="margin-top: 20px">
       <template v-if="data.multiOperations">
-        <el-select v-model="curMultiOperation">
+        <el-select v-model="curMultiOperation" placeholder="批量操作">
           <el-option
             v-for="(operation, index) in data.multiOperations"
             :label="operation.label"

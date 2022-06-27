@@ -7,6 +7,7 @@
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
 import {addFeedback, deleteFeedback, listFeedbacks, updateFeedback} from '@/api/feedback';
+import {deleteMenu} from '@/api/menu';
 
 const updateHandler = ref((data) => {
   return updateFeedback(data);
@@ -17,6 +18,11 @@ const addHandler = ref((data) => {
 const deleteHandler = ref((data) => {
   return deleteFeedback(data.name);
 });
+const multiDeleteHandler = async(data)=>{
+  for (let feedback of data) {
+    await deleteFeedback(feedback.name);
+  }
+}
 const getListHandler = async ({page, queryParams}) => {
   let response = await listFeedbacks({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams);
   let retPage = {};
@@ -93,6 +99,12 @@ const managerFormData = ref({
       },
     ],
     handler: getListHandler,
+    multiOperations: [
+      {
+        label: '删除多个反馈',
+        handler: multiDeleteHandler,
+      }
+    ],
     operations: [
       {
         title: '修改反馈信息',

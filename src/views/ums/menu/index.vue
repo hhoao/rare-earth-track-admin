@@ -17,6 +17,11 @@ const addHandler = ref((data) => {
 const deleteMenuHandler = ref((data)=>{
   return deleteMenu(data.name);
 })
+const multiDeleteHandler = async(data)=>{
+  for (let menu of data) {
+    await deleteMenu(menu.name);
+  }
+}
 const getListHandler = async ({page, queryParams})=>{
   let menuResponse =  await listMenus({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams)
   let retList = []
@@ -100,6 +105,12 @@ const managerFormData = ref({
         label: '隐藏',
         name: 'hidden',
       },
+    ],
+    multiOperations: [
+      {
+        label: '删除多个菜单',
+        handler: multiDeleteHandler,
+      }
     ],
     handler: getListHandler,
     operations: [
