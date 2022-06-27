@@ -22,6 +22,11 @@ const updateHandler = ref((data)=>{
 const deleteHandler = ref((data)=>{
   return deleteUser(data.id);
 })
+const multiDeleteHandler = async (data)=>{
+  for (let user of data){
+    await deleteUser(user.id);
+  }
+}
 const getListHandler = async ({page, queryParams})=>{
   let userResponse =  await list({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams)
   let retList = []
@@ -115,6 +120,12 @@ const managerFormData = ref({
       },
     ],
     handler: getListHandler,
+    multiOperations: [
+      {
+        label: '删除多个用户',
+        handler: multiDeleteHandler,
+      }
+    ],
     operationStyle: {
       width: 220,
     },
