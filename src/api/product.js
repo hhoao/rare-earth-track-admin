@@ -16,7 +16,7 @@ export function addProduct(product) {
 }
 export function updateProduct(product) {
   return request({
-    url: '/products',
+    url: `/products/${product.name}`,
     method: 'patch',
     data: product
   })
