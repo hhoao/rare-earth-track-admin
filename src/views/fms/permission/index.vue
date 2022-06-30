@@ -6,24 +6,24 @@
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
-import {addResource, deleteResource, listResources, updateResource} from '@/api/resource';
+import {addPermission, deletePermission, listPermissions, updatePermission} from '@/api/permission';
 
 const updateHandler = ref((data) => {
-  return updateResource(data);
+  return updatePermission(data);
 });
 const addHandler = ref((data) => {
-  return addResource(data);
+  return addPermission(data);
 });
 const deleteHandler = ref((data) => {
-  return deleteResource(data.name);
+  return deletePermission(data.name);
 });
 const multiDeleteHandler = async (data) => {
-  for (let resource of data) {
-    await deleteResource(resource.name);
+  for (let permission of data) {
+    await deletePermission(permission.name);
   }
 };
 const getListHandler = async ({page, queryParams}) => {
-  let response = await listResources({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams);
+  let response = await listPermissions({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams);
   let retPage = {};
   retPage.total = response.data.total;
   return {page: retPage, list: response.data.list};
