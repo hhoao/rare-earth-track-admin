@@ -39,13 +39,12 @@
             :key="operation.label"
             :type="operation.type ? operation.type : 'primary'"
             :size="operation.size ? operation.size : 'small'"
-            @click="operation.items ? operationRefs[index].showDialog(tableData.row): handleOperation(operation.handler, tableData.row)"
+            @click="(operation.items || operation.contentType) ? operationRefs[index].showDialog(tableData.row): handleOperation(operation.handler, tableData.row)"
           >{{ operation.label }}
           </el-button>
         </template>
       </el-table-column>
     </el-table>
-
     <operation-form
       v-for="(operation, index) in data.operations"
       :ref="el=>{if (el) operationRefs[index] = el}"
