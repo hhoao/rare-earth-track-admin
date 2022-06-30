@@ -16,38 +16,21 @@ export function listJobs(pageInfo, job) {
     params: Object.assign(pageInfo, job)
   })
 }
-export function listJobAllMenus(jobName) {
+
+export function listJobAllPermissions(jobName){
   return request({
-    url: `/jobs/${jobName}/menus`,
-    method: 'get',
-  })
-}
-export function listJobAllResources(jobName){
-  return request({
-    url: `/jobs/${jobName}/resources`,
+    url: `/jobs/${jobName}/permissions`,
     method: 'get'
   })
 }
-export function allocResources(jobName, resourceIds){
+export function allocPermissions(jobName, permissionIds){
   return request({
-    url: `/jobs/${jobName}/resources`,
+    url: `/jobs/${jobName}/permissions`,
     method: 'post',
-    data: resourceIds
+    data: permissionIds
   })
 }
-export function addJobMenu(jobName, menuId) {
-  return request({
-    url: `/jobs/${jobName}/menus/${menuId}`,
-    method: 'post',
-  })
-}
-export function allocMenus(jobName, menuIds) {
-  return request({
-    url: `/jobs/${jobName}/menus`,
-    method: 'post',
-    data: menuIds
-  })
-}
+
 export function updateJob(job) {
   return request({
     url: `/jobs/${job.name}`,
