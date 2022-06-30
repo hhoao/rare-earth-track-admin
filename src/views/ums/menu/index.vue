@@ -57,6 +57,11 @@ const managerFormData = ref({
         style: {placeholder: '姓名'},
       },
       {
+        label: '前端图标',
+        name: 'icon',
+        style: {placeholder: '图标'},
+      },
+      {
         label: '隐藏',
         name: 'hidden',
         style: {type: 'select', options: allHidden},
@@ -77,6 +82,11 @@ const managerFormData = ref({
         style: {placeholder: '姓名'},
       },
       {
+        label: '前端图标',
+        name: 'icon',
+        style: {placeholder: '前端图标'},
+      },
+      {
         label: '隐藏',
         name: 'hidden',
         style: {type: 'select', options: allHidden},
@@ -95,6 +105,11 @@ const managerFormData = ref({
         label: '名称',
         name: 'name',
         style: {placeholder: '姓名'},
+      },
+      {
+        label: '前端图标',
+        name: 'icon',
+        style: {type: 'svg-icon', iconName: 'icon', placeholder: '前端图标'},
       },
       {
         label: '标题',
@@ -133,6 +148,11 @@ const managerFormData = ref({
             label: '标题',
             name: 'title',
             style: {placeholder: '姓名'},
+          },
+          {
+            label: '前端图标',
+            name: 'icon',
+            style: {placeholder: '前端图标'},
           },
           {
             label: '隐藏',
