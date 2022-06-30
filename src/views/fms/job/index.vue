@@ -33,7 +33,6 @@ const setJobPermissionsHandler = async ({checkedNodes, rowData})=>{
 const getJobPermissionsHandler = async (data)=>{
   let tree = {data: [], defaultCheckedKeys: []}
   await listPermissions(null, {pageSize: 0}).then((response) => {
-    console.log(response)
     for (let permission of response.data.list) {
       let treeMetaData = permission
       treeMetaData.label = permission.name;

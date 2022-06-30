@@ -5,13 +5,15 @@
 </template>
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
-import {deleteMember, listMember, updateMember} from '@/api/member';
+import {addMember, deleteMember, listMember, updateMember} from '@/api/member';
 import {ref} from 'vue';
 
 const setJob = ref((data) => {
   return updateMember(data);
 });
-
+const addMemberHandler = (data) => {
+  return addMember(data);
+};
 const updateHandler = ref((data) => {
   return updateMember(data);
 });
@@ -28,7 +30,6 @@ const multiDeleteHandler = async (data) => {
 
 const getListHandler = async ({page, queryParams}) => {
   let memberResponse = await listMember({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams);
-  console.log(memberResponse)
   let retList = memberResponse.data.list;
   let retPage = {};
   retPage.total = memberResponse.data.total;
@@ -36,10 +37,10 @@ const getListHandler = async ({page, queryParams}) => {
 };
 
 const jobs = [
-  {value: 1, name: '超级管理员'},
-  {value: 2, name: '产品管理员'},
-  {value: 3, name: '工厂管理员'},
-  {value: 4, name: '运营人员'},
+  {value: 1, name: '管理员'},
+  {value: 2, name: '运输人员'},
+  {value: 3, name: '运营人员'},
+  {value: 4, name: '销售人员'},
 ];
 
 
@@ -70,8 +71,34 @@ const managerFormData = ref({
         label: '职业id',
         name: 'jobId',
         style: {type: 'select', options: jobs, placeholder: '职业名'},
-      }
+      },
     ],
+  },
+  addForm: {
+    title: '添加成员',
+    items: [
+      {
+        label: '姓名',
+        name: 'nickname',
+        style: {placeholder: '姓名'},
+      },
+      {
+        label: '用户id',
+        name: 'userId',
+        style: {placeholder: '用户id'},
+      },
+      {
+        label: '工厂id',
+        name: 'factoryId',
+        style: {placeholder: '工厂id'},
+      },
+      {
+        label: '职业id',
+        name: 'jobId',
+        style: {type: 'select', options: jobs, placeholder: '职业名'},
+      },
+    ],
+    handler: addMemberHandler,
   },
   listForm: {
     items: [
@@ -92,9 +119,9 @@ const managerFormData = ref({
         name: 'factoryId',
       },
       {
-        label: '职业id',
+        label: '职业',
         name: 'jobId',
-      }
+      },
     ],
     handler: getListHandler,
     multiOperations: [
@@ -136,7 +163,7 @@ const managerFormData = ref({
             label: '职业id',
             name: 'jobId',
             style: {type: 'select', options: jobs, placeholder: '职业名'},
-          }
+          },
         ],
         handler: updateHandler,
       },
