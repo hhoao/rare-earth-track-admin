@@ -25,6 +25,11 @@
               @change="handleColumnChange(item.handler, scope.row)"
             />
           </template>
+          <template v-else-if="item.style.type=== 'svg-icon'">
+            <svg-icon
+              :icon-class="scope.row[item.style.iconName]"
+            />
+          </template>
         </template>
       </el-table-column>
       <el-table-column
@@ -82,6 +87,7 @@
 <script setup>
 import {inject, reactive, ref} from 'vue';
 import OperationForm from '@/components/ManagerForm/OperationForm';
+import SvgIcon from '@/components/SvgIcon';
 
 const props= defineProps({
   data: Object,
