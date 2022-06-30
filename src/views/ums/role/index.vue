@@ -6,8 +6,17 @@
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
-import {addRole, allocMenus, deleteRole, listRoleAllMenus, listRoles, updateRole} from '@/api/role';
+import {
+  addRole,
+  allocMenus,
+  deleteRole,
+  listRoleAllMenus,
+  listRoleAllResources,
+  listRoles,
+  updateRole,
+} from '@/api/role';
 import {listMenus} from '@/api/menu';
+import {listResources} from '@/api/resource';
 
 const updateHandler = ref((data) => {
   return updateRole(data);
@@ -43,6 +52,32 @@ const getTreeHandler  = async (data) => {
   await listRoleAllMenus(data.name).then((roleMenus)=>{
     for (let roleMenu of roleMenus.data.list){
         tree.defaultCheckedKeys.push(roleMenu.id)
+    }
+  })
+  return tree;
+}
+
+const setRoleResourcesHandler = async ({checkedNodes, rowData})=>{
+  let resourceIds = []
+  for (let resource of checkedNodes){
+    resourceIds.push(resource.id)
+  }
+  allocMenus(rowData.name, resourceIds)
+}
+const getRoleResourcesHandler = async (data)=>{
+  let tree = {data: [], defaultCheckedKeys: []}
+  await listResources(null, {pageSize: 0}).then((response) => {
+    for (let resource of response.data.list) {
+      let treeMetaData = resource
+      treeMetaData.label = resource.name;
+      treeMetaData.id = resource.id
+      tree.data.push(treeMetaData)
+    }
+  });
+
+  await listRoleAllResources(data.name).then((roleMenus)=>{
+    for (let roleMenu of roleMenus.data.list){
+      tree.defaultCheckedKeys.push(roleMenu.id)
     }
   })
   return tree;
@@ -136,11 +171,19 @@ const managerFormData = ref({
     operations: [
       {
         contentType: 'tree',
-        title: '分配菜单',
-        label: '分配菜单',
+        title: '设置菜单',
+        label: '设置菜单',
         type: 'warning',
         getTreeHandler: getTreeHandler,
         handler: setTreeHandler,
+      },
+      {
+        contentType: 'tree',
+        title: '设置资源',
+        label: '设置资源',
+        type: 'warning',
+        getTreeHandler: getRoleResourcesHandler,
+        handler: setRoleResourcesHandler,
       },
       {
         title: '修改角色',

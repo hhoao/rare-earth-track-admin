@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-export function listResources(pageInfo, resource) {
+export function listResources(pageInfo, queryParams) {
   return request({
     url: '/resources',
     method: 'get',
-    params: Object.assign(pageInfo, resource)
+    params: (queryParams && pageInfo) ? Object.assign(queryParams, pageInfo) : (queryParams ? queryParams : pageInfo)
   })
 }
 export function addResource(resource) {

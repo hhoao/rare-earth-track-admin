@@ -22,6 +22,19 @@ export function listRoleAllMenus(roleName) {
     method: 'get',
   })
 }
+export function listRoleAllResources(roleName){
+  return request({
+    url: `/roles/${roleName}/resources`,
+    method: 'get'
+  })
+}
+export function allocResources(roleName, resourceIds){
+  return request({
+    url: `/roles/${roleName}/resources`,
+    method: 'post',
+    data: resourceIds
+  })
+}
 export function addRoleMenu(roleName, menuId) {
   return request({
     url: `/roles/${roleName}/menus/${menuId}`,
