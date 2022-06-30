@@ -6,8 +6,8 @@
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
-import {addRole, deleteRole, listRoles, updateRole} from '@/api/role';
-import {deleteMenu} from '@/api/menu';
+import {addRole, allocMenus, deleteRole, listRoleAllMenus, listRoles, updateRole} from '@/api/role';
+import {listMenus} from '@/api/menu';
 
 const updateHandler = ref((data) => {
   return updateRole(data);
@@ -15,6 +15,45 @@ const updateHandler = ref((data) => {
 const deleteHandler = ref((data) => {
   return deleteRole(data.name);
 });
+const getTreeHandler  = async (data) => {
+  let tree = {data: [], defaultCheckedKeys: []}
+  await listMenus(null, {pageSize: 0}).then((response) => {
+    let childNodes = []
+    for (let menu of response.data.list) {
+      let treeMetaData = menu
+      treeMetaData.label = menu.title;
+      treeMetaData.id = menu.id
+      if (menu.parentId === 0){
+        tree.data.push(treeMetaData)
+      }else{
+        treeMetaData.parentId = menu.parentId
+        childNodes.push(treeMetaData)
+      }
+    }
+    for (let childNode of childNodes) {
+      for (let parentData of tree.data) {
+        if (parentData.id === childNode.parentId) {
+          parentData.children = parentData.children ? parentData.children : []
+          parentData.children.push(childNode)
+        }
+      }
+    }
+  });
+
+  await listRoleAllMenus(data.name).then((roleMenus)=>{
+    for (let roleMenu of roleMenus.data.list){
+        tree.defaultCheckedKeys.push(roleMenu.id)
+    }
+  })
+  return tree;
+}
+const setTreeHandler = ({checkedNodes, rowData}) => {
+  let menuIds = []
+  for (let menu of checkedNodes){
+    menuIds.push(menu.id)
+  }
+  allocMenus(rowData.name, menuIds)
+}
 const getListHandler = async ({page, queryParams}) => {
   let response = await listRoles({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams);
   let retPage = {};
@@ -95,6 +134,14 @@ const managerFormData = ref({
     ],
     handler: getListHandler,
     operations: [
+      {
+        contentType: 'tree',
+        title: '分配菜单',
+        label: '分配菜单',
+        type: 'warning',
+        getTreeHandler: getTreeHandler,
+        handler: setTreeHandler,
+      },
       {
         title: '修改角色',
         label: '编辑',

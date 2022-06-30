@@ -16,7 +16,25 @@ export function listRoles(pageInfo, role) {
     params: Object.assign(pageInfo, role)
   })
 }
-
+export function listRoleAllMenus(roleName) {
+  return request({
+    url: `/roles/${roleName}/menus`,
+    method: 'get',
+  })
+}
+export function addRoleMenu(roleName, menuId) {
+  return request({
+    url: `/roles/${roleName}/menus/${menuId}`,
+    method: 'post',
+  })
+}
+export function allocMenus(roleName, menuIds) {
+  return request({
+    url: `/roles/${roleName}/menus`,
+    method: 'post',
+    data: menuIds
+  })
+}
 export function updateRole(role) {
   return request({
     url: `/roles/${role.name}`,

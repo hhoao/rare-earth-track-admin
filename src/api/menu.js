@@ -3,7 +3,7 @@ export const listMenus = (queryParams, pageInfo) =>{
   return request({
     url: "/menus",
     method: "get",
-    params: Object.assign(queryParams, pageInfo)
+    params: (queryParams && pageInfo) ? Object.assign(queryParams, pageInfo) : (queryParams ? queryParams : pageInfo)
   })
 }
 export const addMenu = (newMenu) => {
