@@ -23,9 +23,9 @@ export function listJobAllPermissions(jobName){
     method: 'get'
   })
 }
-export function allocPermissions(jobName, permissionIds){
+export function allocPermissions(jobId, permissionIds){
   return request({
-    url: `/jobs/${jobName}/permissions`,
+    url: `/jobs/${jobId}/permissions`,
     method: 'post',
     data: permissionIds
   })

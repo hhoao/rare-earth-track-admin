@@ -42,7 +42,7 @@ const getJobPermissionsHandler = async (data)=>{
     }
   });
 
-  await listJobAllPermissions(data.name).then((jobMenus)=>{
+  await listJobAllPermissions(data.id).then((jobMenus)=>{
     for (let jobMenu of jobMenus.data.list){
       tree.defaultCheckedKeys.push(jobMenu.id)
     }
