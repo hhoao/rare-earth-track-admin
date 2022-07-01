@@ -13,6 +13,8 @@
       <el-table-column
         v-for="item in data.items"
         :prop="item.name"
+        :min-width="100"
+        :width="item.width"
         :key="item.name"
         :label="item.label"
       >

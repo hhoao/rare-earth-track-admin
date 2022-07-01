@@ -1,6 +1,7 @@
 ## 离子型稀土溯源后台管理界面
 
 ---
+
 ### 简介
 
 以学习为目的做出来的后台管理界面
@@ -16,13 +17,16 @@
 | vue-cli      | Vue CLI 是一个基于 Vue.js 进行快速开发的完整系统。<br/>https://cli.vuejs.org/zh/index.html      |
 | webpack      | webpack 是一个现代 JavaScript 应用程序的静态模块打包器。<br/>https://www.webpackjs.com/          |
 | axios        | Axios 是一个基于 promise 的网络请求库。 <br/> https://www.axios-http.cn/                   |
-后端代码: 
+
+后端代码:
+
 * gitee: https://gitee.com/hhoao/rare-earth-track
 * github: https://github.com/HHoao/RETrack
 
 如何运行:
+
 * 修改`.dev.development`文件中的 `VUE_APP_BASE_API` 为自己的后端url
 * 命令行输入:
-* >  `npm install`
-  > 
+* > `npm install`
+  >
   > `npm run serve`
