@@ -106,6 +106,9 @@ const managerFormData = ref({
         handler: multiDeleteHandler,
       },
     ],
+    operationStyle: {
+      width: 220,
+    },
     operations: [
       {
         title: '详细信息',
@@ -130,6 +133,10 @@ const managerFormData = ref({
           {
             label: '批次',
             name: 'batchId',
+          },
+          {
+            label: '出货时间',
+            name: 'dispatchTime',
           },
           {
             label: '防潮标识',
