@@ -135,6 +135,10 @@ const managerFormData = ref({
             name: 'batchId',
           },
           {
+            label: '生产厂家',
+            name: 'factory',
+          },
+          {
             label: '出货时间',
             name: 'dispatchTime',
           },
@@ -171,24 +175,28 @@ const managerFormData = ref({
             name: 'standardNumber',
           },
           {
-            label: '纯度',
-            name: 'purity',
+            label: '矿山工艺',
+            name: 'miningTechnology',
           },
           {
-            label: '生产设备',
-            name: 'productionEquipment',
+            label: '冶炼',
+            name: 'mine',
           },
           {
-            label: '物料比例',
-            name: 'materialRatio',
+            label: '分离',
+            name: 'separate',
           },
           {
-            label: '提取单元',
-            name: 'extractionUnit',
+            label: '含氧量',
+            name: 'oxygenLevels',
           },
           {
-            label: '图册',
-            name: 'albumPics',
+            label: '压力',
+            name: 'pressure',
+          },
+          {
+            label: '磁场大小',
+            name: 'magneticField',
           },
           {
             label: '钕成分',
