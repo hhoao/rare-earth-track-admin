@@ -30,3 +30,15 @@
 * > `npm install`
   >
   > `npm run serve`
+
+* 部署: 
+  * 部署完后端后输入:
+    > `npm install`
+    > 
+    > `npm build`
+    >
+    > `docker build -t hhoao/ret-web-admin`
+    > 
+    > `dokcer push hhoao/ret-web-admin`
+    > 
+    > 最后在服务器端启动就可以了
