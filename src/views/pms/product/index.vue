@@ -163,8 +163,8 @@ const managerFormData = ref({
             name: 'transportLog',
           },
           {
-            label: '图片',
-            name: 'pic',
+            label: '原料批次',
+            name: 'rawMaterialBatch',
           },
           {
             label: '质检报告',
