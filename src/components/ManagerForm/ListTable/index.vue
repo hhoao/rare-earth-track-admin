@@ -11,15 +11,22 @@
         <el-table-column type="selection" width="55" />
       </template>
       <el-table-column
-        v-for="item in data.items"
+        v-for="(item, index) in data.items"
         :prop="item.name"
         :min-width="100"
         :width="item.width"
-        :key="item.name"
+        :key="index"
         :label="item.label"
       >
         <template v-if="item.style" #default="scope">
-          <template v-if="item.style.type=== 'switch'">
+          <template v-if="item.style.type==='image'">
+            <el-image :src="scope.row.url">
+              <template #placeholder>
+                <div class="image-slot">Loading<span class="dot">...</span></div>
+              </template>
+            </el-image>
+          </template>
+          <template v-else-if="item.style.type=== 'switch'">
             <el-switch
               v-model="scope.row.status"
               :active-value="1"
@@ -95,7 +102,6 @@ const props= defineProps({
   data: Object,
 })
 const repository = inject('repository');
-
 const page = reactive({
   total: 0,
   pageNum: 1,

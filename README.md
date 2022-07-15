@@ -37,7 +37,7 @@
     > 
     > `npm build`
     >
-    > `docker build -t hhoao/ret-web-admin`
+    > `docker build -t hhoao/ret-web-admin .`
     > 
     > `dokcer push hhoao/ret-web-admin`
     > 

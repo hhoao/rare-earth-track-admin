@@ -4,7 +4,8 @@ import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css'// Progress 进度条样式
 import {ElMessage} from 'element-plus'
 import {getToken} from '@/utils/auth'
-import {getUserMenus} from "@/api/user";
+import {getMenus} from '@/api/login';
+
 
 const whiteList = ['/login'] // 不重定向白名单
 router.beforeEach((to, from, next) => {
@@ -16,7 +17,7 @@ router.beforeEach((to, from, next) => {
         } else {
           //判断是否已经登陆
             if (store.getters.roleId == null) {
-                getUserMenus()
+                getMenus()
                     .then(menuRes => {
                         let menus = menuRes.data;
                         if (menus == null) {

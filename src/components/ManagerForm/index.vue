@@ -9,7 +9,7 @@
             <span style="margin-left: 5px">数据列表</span>
             <template v-if="data.addForm && data.addForm.items">
               <el-button
-                :type="data.addForm.type ? data.addForm.type : 'default'"
+                :type="data.addForm.buttonType ? data.addForm.buttonType : 'default'"
                 :size="data.addForm.size ? data.addForm.size : 'default'"
                 @click="addFormRef.showDialog()"
                 style="float: right;margin-right: 15px"

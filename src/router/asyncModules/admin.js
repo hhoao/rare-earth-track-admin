@@ -119,5 +119,22 @@ export default [
                 hidden: false,
             }
         ]
+    },
+    {
+        name: 'oms',
+        path: '/oms',
+        redirect: '/oms/file',
+        component: Layout,
+        meta: {title: '文件', icon: 'oms'},
+        hidden: false,
+        children: [
+            {
+                name: 'file',
+                path: 'file',
+                component: () => import('@/views/oms/file'),
+                meta: {title: '文件列表', icon: 'fms-file'},
+                hidden: false,
+            }
+        ]
     }
 ]

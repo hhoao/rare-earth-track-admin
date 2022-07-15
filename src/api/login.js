@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function login(identifier, password) {
   return request({
-    url: '/users/auth/token',
+    url: '/administrators/auth/token',
     method: 'post',
     data: {
       identifier,
@@ -10,17 +10,23 @@ export function login(identifier, password) {
     }
   })
 }
+export function getMenus() {
+  return request({
+    url: '/administrator/role/menus',
+    method: 'get',
+  })
+}
 
 export function getInfo() {
   return request({
-    url: '/user',
+    url: '/administrator',
     method: 'get',
   })
 }
 
 export function logout() {
   return request({
-    url: '/user/auth/token',
+    url: '/administrator/auth/token',
     method: 'delete'
   })
 }
