@@ -6,11 +6,17 @@
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
 import {getRoleNameByRoleId} from '@/api/role';
-import {deleteAdministrator, getAdministratorAuths, list, updateAdministrator} from '@/api/administrator';
+import {
+  addAdministrator,
+  deleteAdministrator,
+  list,
+  updateAdministrator,
+} from '@/api/administrator';
 import {ref} from 'vue';
-import {checkEmail, checkMobile} from '@/utils/check';
-import {getUserAuths} from '@/api/user';
-
+import {checkEmail, checkMobile, checkPassword, checkUsername} from '@/utils/check';
+const addHandler = ref((data) => {
+  return addAdministrator(data)
+})
 const setRole = ref((data) => {
   return updateAdministrator(data)
 });
@@ -39,6 +45,7 @@ const getListHandler = async ({page, queryParams})=>{
   }
   return {page: retPage, list: retList}
 }
+
 const roles = [
   {value: 1, name: '超级管理员'},
   {value: 2, name: '产品管理员'},
@@ -84,6 +91,27 @@ const managerFormData = ref({
         style: {type: 'select', options: allStatus},
       },
     ],
+  },
+  addForm: {
+    title: '添加管理员',
+    items: [
+      {
+        label: '名称',
+        name: 'username',
+        style: {placeholder: '姓名', rule:{validator: checkUsername}},
+      },
+      {
+        label: '密码',
+        name: 'password',
+        style: {placeholder: '密码', rule:{validator: checkPassword}},
+      },
+      {
+        label: '角色名',
+        name: 'roleId',
+        style: {type: 'select', options: roles},
+      },
+    ],
+    handler: addHandler,
   },
   listForm: {
     items: [

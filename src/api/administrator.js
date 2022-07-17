@@ -7,18 +7,11 @@ export function getAdministratorMenus() {
   })
 }
 
-export function getAdministratorAuths(administratorId) {
-  return request({
-    url: `administrators/${administratorId}/auths`,
-    method: 'get'
-  })
-}
-
-export function addAdministrator(newAdministrator) {
+export function addAdministrator(administrator) {
   return request({
     url: `administrators`,
     method: 'post',
-    data: newAdministrator
+    data: administrator
   })
 }
 export function updateAdministrator(administrator) {

@@ -131,7 +131,11 @@ const getFormRules = () => {
   let operationFormRules = {};
   for (let item in props.data.items) {
     if (item.style && item.style.rule) {
-      operationFormRules[item.name] = {required: true, validator: item.style.rule.validator, trigger: 'blur'};
+      operationFormRules[item.name] = {
+        required: true,
+        validator: item.style.rule.validator,
+        trigger: 'blur',
+      };
     }
   }
   return operationFormRules;

@@ -21,3 +21,22 @@ export const checkMobile = (rule, value, callback) => {
   }
 }
 
+export const checkUsername = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('请输入用户名'))
+  } else if (value.length < 3) {
+    callback(new Error('用户名长度必须大于4'))
+  }else {
+    callback()
+  }
+}
+export const checkPassword = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('请输入用户名'))
+  } else if (value.length < 6 || value.length > 15) {
+    callback(new Error('密码长度在 3 到 15 个字符'))
+  }else{
+    callback()
+  }
+}
+
