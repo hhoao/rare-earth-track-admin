@@ -13,7 +13,14 @@ export default [
                 name: 'admin',
                 path:'admin',
                 component: () => import('@/views/ums/admin'),
-                meta: {title: '用户列表', icon: 'ums-admin'},
+                meta: {title: '管理员列表', icon: 'ums-admin'},
+                hidden: false
+            },
+            {
+                name: 'user',
+                path:'user',
+                component: () => import('@/views/ums/user'),
+                meta: {title: '用户列表', icon: 'ums-user'},
                 hidden: false
             },
             {
@@ -37,7 +44,6 @@ export default [
                 meta: {title: '权限列表', icon: 'ums-menu'},
                 hidden: false
             },
-
         ]
     },
     {

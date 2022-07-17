@@ -6,36 +6,41 @@
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
 import {getRoleNameByRoleId} from '@/api/role';
-import {deleteAdministrator, getAdministratorAuths, list, updateAdministrator} from '@/api/administrator';
+import {deleteUser, getUserAuths, list, updateUser} from '@/api/user';
 import {ref} from 'vue';
 import {checkEmail, checkMobile} from '@/utils/check';
-import {getUserAuths} from '@/api/user';
 
 const setRole = ref((data) => {
-  return updateAdministrator(data)
+  return updateUser(data)
 });
 const roleUpdateHandler = ref((data)=>{
-  return updateAdministrator(data.id)
+  return updateUser(data.id)
 })
 const updateHandler = ref((data)=>{
-  return updateAdministrator(data)
+  return updateUser(data)
 })
 const deleteHandler = ref((data)=>{
-  return deleteAdministrator(data.id);
+  return deleteUser(data.id);
 })
 const multiDeleteHandler = async (data)=>{
-  for (let administrator of data){
-    await deleteAdministrator(administrator.id);
+  for (let user of data){
+    await deleteUser(user.id);
   }
 }
 const getListHandler = async ({page, queryParams})=>{
-  let administratorResponse =  await list({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams)
-  let retList = administratorResponse.data.list
+  let userResponse =  await list({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams)
+  let retList = []
   let retPage = {}
-  for (let i = 0; i < administratorResponse.data.list.length; i++) {
-      let administrator = administratorResponse.data.list[i]
-      administrator.roleId = getRoleNameByRoleId(administrator.roleId);
-      retList[i] = administrator;
+  retPage.total = userResponse.data.total;
+  for (let i = 0; i < userResponse.data.list.length; i++) {
+    let user = userResponse.data.list[i];
+    await getUserAuths(user.id).then((authResponse) => {
+      user.roleId = getRoleNameByRoleId(user.roleId);
+      user.phone = authResponse.data.phone;
+      user.email = authResponse.data.email;
+      user.name = authResponse.data.username;
+      retList[i] = user;
+    });
   }
   return {page: retPage, list: retList}
 }
@@ -60,7 +65,7 @@ const managerFormData = ref({
       },
       {
         label: '姓名',
-        name: 'username',
+        name: 'name',
         style: {isDisable: true, placeholder: '姓名'},
       },
       {
@@ -93,7 +98,7 @@ const managerFormData = ref({
       },
       {
         label: '姓名',
-        name: 'username',
+        name: 'name',
       },
       {
         label: '邮箱',
