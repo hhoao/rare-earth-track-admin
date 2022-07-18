@@ -1,5 +1,3 @@
-FROM nginx:1.21.6
+FROM alpine
 
-COPY --chown=nginx:nginx dist /usr/share/nginx/html/release
-COPY default.conf /etc/nginx/conf.d/
-WORKDIR /usr/share/nginx/html/release
+COPY dist /data
