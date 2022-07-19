@@ -9,7 +9,7 @@ export function listFactories(pageInfo, factory) {
 }
 export function addFactory(factory) {
   return request({
-    url: `factories`,
+    url: `/factories`,
     method: 'post',
     data: factory
   })
@@ -23,7 +23,7 @@ export function updateFactory(factory) {
 }
 export function deleteFactory(factoryName) {
   return request({
-    url: `factories/${factoryName}`,
+    url: `/factories/${factoryName}`,
     method: 'delete'
   })
 }

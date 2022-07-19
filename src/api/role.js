@@ -57,14 +57,14 @@ export function updateRole(role) {
 }
 export function addRole(role) {
   return request({
-    url: `roles`,
+    url: `/roles`,
     method: 'post',
     data: role
   })
 }
 export function deleteRole(roleName) {
   return request({
-    url: `roles/${roleName}`,
+    url: `/roles/${roleName}`,
     method: 'delete'
   })
 }

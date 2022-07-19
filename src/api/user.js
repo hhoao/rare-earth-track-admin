@@ -9,34 +9,34 @@ export function getUserMenus() {
 
 export function getUserAuths(userId) {
     return request({
-        url: `users/${userId}/auths`,
+        url: `/users/${userId}/auths`,
         method: 'get'
     })
 }
 
 export function addUser(newUser) {
     return request({
-        url: `users`,
+        url: `/users`,
         method: 'post',
         data: newUser
     })
 }
 export function updateUser(user) {
     return request({
-        url: 'users',
+        url: '/users',
         method: 'patch',
         data: user
     })
 }
 export function deleteUser(userId) {
     return request({
-        url: `users/${userId}`,
+        url: `/users/${userId}`,
         method: 'delete'
     })
 }
 export function list(pageInfo, queryUser) {
     return request({
-        url: 'users',
+        url: '/users',
         method: 'get',
         params: Object.assign(pageInfo, queryUser)
     })

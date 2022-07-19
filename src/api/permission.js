@@ -23,7 +23,7 @@ export function updatePermission(permission) {
 }
 export function deletePermission(permissionName) {
   return request({
-    url: `permissions/${permissionName}`,
+    url: `/permissions/${permissionName}`,
     method: 'delete'
   })
 }

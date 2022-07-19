@@ -9,7 +9,7 @@ export function listProducts(pageInfo, product) {
 }
 export function addProduct(product) {
   return request({
-    url: `products`,
+    url: `/products`,
     method: 'post',
     data: product
   })
@@ -23,7 +23,7 @@ export function updateProduct(product) {
 }
 export function deleteProduct(productName) {
   return request({
-    url: `products/${productName}`,
+    url: `/products/${productName}`,
     method: 'delete'
   })
 }

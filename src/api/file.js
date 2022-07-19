@@ -10,7 +10,7 @@ export function listFiles(pageInfo, file) {
 export function addFile(file) {
   return request({
     method: "post",
-    url: `files`,
+    url: `/files`,
     headers: {
       'Content-Type': "multipart/form-data",
     },
@@ -22,7 +22,7 @@ export function addFile(file) {
 }
 export function deleteFile(fileId) {
   return request({
-    url: `files/${fileId}`,
+    url: `/files/${fileId}`,
     method: 'delete'
   })
 }

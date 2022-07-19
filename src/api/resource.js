@@ -9,7 +9,7 @@ export function listResources(pageInfo, queryParams) {
 }
 export function addResource(resource) {
   return request({
-    url: `resources`,
+    url: `/resources`,
     method: 'post',
     data: resource
   })
@@ -23,7 +23,7 @@ export function updateResource(resource) {
 }
 export function deleteResource(resourceName) {
   return request({
-    url: `resources/${resourceName}`,
+    url: `/resources/${resourceName}`,
     method: 'delete'
   })
 }

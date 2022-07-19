@@ -10,7 +10,7 @@ export function listFeedbacks(pageInfo, feedback) {
 
 export function addFeedback(feedback) {
   return request({
-    url: `feedbacks`,
+    url: `/feedbacks`,
     method: 'post',
     data: feedback
   })
@@ -24,7 +24,7 @@ export function updateFeedback(feedback) {
 }
 export function deleteFeedback(feedbackName) {
   return request({
-    url: `feedbacks/${feedbackName}`,
+    url: `/feedbacks/${feedbackName}`,
     method: 'delete'
   })
 }

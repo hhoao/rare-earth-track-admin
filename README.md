@@ -37,8 +37,8 @@
     > 
     > `npm build`
     >
-    > `docker build -t hhoao/ret-web-admin .`
+    > `docker build -t hhoao/ret-web-admin-setup .`
     > 
-    > `dokcer push hhoao/ret-web-admin`
+    > `dokcer push hhoao/ret-web-admin-setup`
     > 
     > 最后在服务器端启动就可以了
