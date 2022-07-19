@@ -6,7 +6,7 @@
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
-import {deleteFile, listFiles} from '@/api/file';
+import {deleteFile, listFiles, uploadFile} from '@/api/file';
 import {getToken} from '@/utils/auth';
 
 const deleteHandler = ref((data) => {
@@ -67,7 +67,7 @@ const managerFormData = ref({
         name: 'file',
         style: {
           type: 'file',
-          action: process.env["VUE_APP_BASE_API"] + "files/",
+          action: uploadFile,
           headers: new Headers({"Authorization": getToken()}),
           drag: true,
           multiple: true,

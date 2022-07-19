@@ -7,6 +7,8 @@ export function listFiles(pageInfo, file) {
     params: Object.assign(pageInfo, file)
   })
 }
+export const uploadFile = process.env["VUE_APP_BASE_API"] + "/files/"
+
 export function addFile(file) {
   return request({
     method: "post",
