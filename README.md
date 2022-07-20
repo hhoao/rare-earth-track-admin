@@ -23,6 +23,10 @@
 * gitee: https://gitee.com/hhoao/rare-earth-track
 * github: https://github.com/HHoao/RETrack
 
+项目体验:
+* 前台: http://120.48.118.129/
+* 后台: http://120.48.118.129/admin
+
 如何运行:
 
 * 修改`.dev.development`文件中的 `VUE_APP_BASE_API` 为自己的后端url
