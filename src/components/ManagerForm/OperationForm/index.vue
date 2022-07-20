@@ -15,7 +15,7 @@
       />
     </template>
     <template v-else>
-      <el-form :model="operationForm" :rules="getFormRules()" ref="FormRef" label-width="80px">
+      <el-form :model="operationForm" :rules="getFormRules()" ref="operationFormRef" label-width="80px">
         <el-form-item
           v-for="item in data.items"
           :prop="item.name"
@@ -108,6 +108,7 @@ const operationDialogVisible = ref(false);
 const operationForm = ref({});
 const formData = ref({});
 const operationTree = ref({});
+const operationFormRef = ref(null);
 // 树数据
 const treeData = ref(null);
 const treeDefaultCheckedKeys = ref([]);
@@ -152,6 +153,7 @@ const showDialog = (item) => {
 //处理操作
 const handleOperation = (handlerProxy) => {
   let promise;
+  let isValid;
   if (handlerProxy) {
     if (fileList.value.length !== 0) {
       operationForm.value.fileList = fileList;
@@ -161,8 +163,16 @@ const handleOperation = (handlerProxy) => {
       let rowData = operationForm.value;
       promise = handlerProxy({checkedNodes, rowData});
     } else {
-      promise = handlerProxy(operationForm.value);
+      operationFormRef.value.validate(valid => {
+        if (valid) {
+          isValid = valid
+          promise = handlerProxy(operationForm.value);
+        }
+      })
     }
+  }
+  if (!isValid){
+    return;
   }
   if (promise && promise instanceof Promise) {
     promise.then(() => {
