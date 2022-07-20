@@ -5,7 +5,7 @@
 </template>
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
-import {getRoleNameByRoleId} from '@/api/role';
+import {getRoleNameByRoleId, listRoles} from '@/api/role';
 import {
   addAdministrator,
   deleteAdministrator,
@@ -13,7 +13,7 @@ import {
   updateAdministrator,
 } from '@/api/administrator';
 import {ref} from 'vue';
-import {checkEmail, checkMobile, checkPassword, checkUsername} from '@/utils/check';
+import {checkEmail, checkEmptyOption, checkMobile, checkPassword, checkUsername} from '@/utils/check';
 const addHandler = ref((data) => {
   return addAdministrator(data)
 })
@@ -38,20 +38,27 @@ const getListHandler = async ({page, queryParams})=>{
   let administratorResponse =  await list({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams)
   let retList = administratorResponse.data.list
   let retPage = {}
+  retPage.total = administratorResponse.data.total
   for (let i = 0; i < administratorResponse.data.list.length; i++) {
       let administrator = administratorResponse.data.list[i]
-      administrator.roleId = getRoleNameByRoleId(administrator.roleId);
+      await getRoleNameByRoleId(administrator.roleId).then(name => {
+        administrator.roleId = name;
+      })
       retList[i] = administrator;
   }
   return {page: retPage, list: retList}
 }
 
-const roles = [
-  {value: 1, name: '超级管理员'},
-  {value: 2, name: '产品管理员'},
-  {value: 3, name: '工厂管理员'},
-  {value: 4, name: '运营人员'},
-];
+const roles = []
+listRoles({pageSize: 0}, {}).then(response => {
+  let list = response.data.list
+  for (let role of list){
+    // console.log(role)
+    // console.log({value: role.id.toString(), name: role.name})
+    roles.push({value: role.id, name: role.name})
+  }
+})
+
 const allStatus = [
   {value: '0', name: 'False'},
   {value: '1', name: 'True'},
@@ -69,16 +76,6 @@ const managerFormData = ref({
         label: '姓名',
         name: 'username',
         style: {isDisable: true, placeholder: '姓名'},
-      },
-      {
-        label: '邮箱',
-        name: 'email',
-        style: {rule: {validator: checkEmail}, placeholder: '邮箱'},
-      },
-      {
-        label: '电话',
-        name: 'phone',
-        style: {rule: {validator: checkMobile}, placeholder: '电话'},
       },
       {
         label: '角色',
@@ -108,7 +105,7 @@ const managerFormData = ref({
       {
         label: '角色名',
         name: 'roleId',
-        style: {type: 'select', options: roles},
+        style: {type: 'select', options: roles, rule: {validator: checkEmptyOption}},
       },
     ],
     handler: addHandler,
@@ -122,14 +119,6 @@ const managerFormData = ref({
       {
         label: '姓名',
         name: 'username',
-      },
-      {
-        label: '邮箱',
-        name: 'email',
-      },
-      {
-        label: '电话',
-        name: 'phone',
       },
       {
         label: '角色',
@@ -165,19 +154,8 @@ const managerFormData = ref({
           },
           {
             label: '姓名',
-            name: 'name',
-            style: {isDisable: true, placeholder: '姓名'},
-          },
-          {
-            label: '邮箱',
-            name: 'email',
-            style: {rule: {validator: checkEmail}, placeholder: '邮箱'},
-          },
-          {
-            label: '电话',
-            name: 'phone',
-            style: {rule: {validator: checkMobile}},
-            placeholder: '电话',
+            name: 'username',
+            style: {placeholder: '姓名', rule:{validator: checkUsername}},
           },
           {
             label: '角色',

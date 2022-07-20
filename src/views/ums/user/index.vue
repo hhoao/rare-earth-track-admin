@@ -35,7 +35,6 @@ const getListHandler = async ({page, queryParams})=>{
   for (let i = 0; i < userResponse.data.list.length; i++) {
     let user = userResponse.data.list[i];
     await getUserAuths(user.id).then((authResponse) => {
-      user.roleId = getRoleNameByRoleId(user.roleId);
       user.phone = authResponse.data.phone;
       user.email = authResponse.data.email;
       user.name = authResponse.data.username;
@@ -44,12 +43,7 @@ const getListHandler = async ({page, queryParams})=>{
   }
   return {page: retPage, list: retList}
 }
-const roles = [
-  {value: 1, name: '超级管理员'},
-  {value: 2, name: '产品管理员'},
-  {value: 3, name: '工厂管理员'},
-  {value: 4, name: '运营人员'},
-];
+
 const allStatus = [
   {value: '0', name: 'False'},
   {value: '1', name: 'True'},
@@ -79,11 +73,6 @@ const managerFormData = ref({
         style: {rule: {validator: checkMobile}, placeholder: '电话'},
       },
       {
-        label: '角色',
-        name: 'roleId',
-        style: {type: 'select', options: roles, placeholder: '角色名'},
-      },
-      {
         label: '是否启用',
         name: 'status',
         style: {type: 'select', options: allStatus},
@@ -107,10 +96,6 @@ const managerFormData = ref({
       {
         label: '电话',
         name: 'phone',
-      },
-      {
-        label: '角色',
-        name: 'roleId',
       },
       {
         label: '是否启用',
@@ -157,30 +142,12 @@ const managerFormData = ref({
             placeholder: '电话',
           },
           {
-            label: '角色',
-            name: 'roleId',
-            style: {type: 'select', options: roles, placeholder: '角色名'},
-          },
-          {
             label: '是否启用',
             name: 'status',
             style: {type: 'switch', options: allStatus},
           },
         ],
         handler: updateHandler
-      },
-      {
-        label: '设置角色',
-        type: 'warning',
-        title: '设置角色',
-        items: [
-          {
-            label: '角色',
-            name: 'roleId',
-            style: {type: 'select', options: roles, placeholder: '角色名'},
-          },
-        ],
-        handler: setRole,
       },
       {
         label: '删除',

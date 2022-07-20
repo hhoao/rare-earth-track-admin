@@ -14,6 +14,7 @@ import {
   updateJob,
 } from '@/api/job';
 import {listPermissions} from '@/api/permission';
+import {checkNotEmpty} from '@/utils/check';
 
 const updateHandler = ref((data) => {
   return updateJob(data);
@@ -90,7 +91,7 @@ const managerFormData = ref({
       {
         label: '名称',
         name: 'name',
-        style: {placeholder: '名称'},
+        style: {placeholder: '名称', rule: {validator: checkNotEmpty}},
       },
       {
         label: '描述',
@@ -138,7 +139,7 @@ const managerFormData = ref({
           {
             label: '名称',
             name: 'name',
-            style: {placeholder: '名称'},
+            style: {placeholder: '名称', rule: {validator: checkNotEmpty}},
           },
           {
             label: '描述',

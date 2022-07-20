@@ -80,13 +80,12 @@
       <div style="float: right">
         <el-pagination
           style="padding-top: 0;"
-          :current-page="page.pageNum"
           :page-sizes="[1, 2, 5, 10]"
           :page-size="page.pageSize"
           layout="total, sizes, prev, pager, next, jumper"
           :total="page.total"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
+          @update:page-size="handleSizeChange"
+          @update:current-page="handleCurrentChange"
         />
       </div>
     </div>
@@ -94,7 +93,7 @@
 </template>
 
 <script setup>
-import {inject, reactive, ref} from 'vue';
+import {inject, reactive, ref, watch} from 'vue';
 import OperationForm from '@/components/ManagerForm/OperationForm';
 import SvgIcon from '@/components/SvgIcon';
 
@@ -130,12 +129,14 @@ const config = reactive({
 })
 const list = repository.list
 
+//刷新数据列表
 repository.refreshList=()=>{
   let promise = props.data.handler({page, queryParams: repository.queryParams});
   if (promise && promise instanceof Promise){
     promise.then((ret)=>{
       repository.list = ret.list
-      page.total = ret.page.total
+      if (ret.page.total)
+        page.total = ret.page.total
     })
   }
 }

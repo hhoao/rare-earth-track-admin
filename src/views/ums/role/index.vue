@@ -8,7 +8,7 @@ import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
 import {
   addRole,
-  allocMenus,
+  allocMenus, allocResources,
   deleteRole,
   listRoleAllMenus,
   listRoleAllResources,
@@ -17,6 +17,7 @@ import {
 } from '@/api/role';
 import {listMenus} from '@/api/menu';
 import {listResources} from '@/api/resource';
+import {checkNotEmpty} from '@/utils/check';
 
 const updateHandler = ref((data) => {
   return updateRole(data);
@@ -62,7 +63,7 @@ const setRoleResourcesHandler = async ({checkedNodes, rowData})=>{
   for (let resource of checkedNodes){
     resourceIds.push(resource.id)
   }
-  allocMenus(rowData.name, resourceIds)
+  allocResources(rowData.name, resourceIds)
 }
 const getRoleResourcesHandler = async (data)=>{
   let tree = {data: [], defaultCheckedKeys: []}
@@ -138,7 +139,7 @@ const managerFormData = ref({
       {
         label: '名称',
         name: 'name',
-        style: {placeholder: '名称'},
+        style: {placeholder: '名称', rule: {validator: checkNotEmpty}},
       },
       {
         label: '描述',
@@ -198,7 +199,7 @@ const managerFormData = ref({
           {
             label: '名称',
             name: 'name',
-            style: {placeholder: '名称'},
+            style: {placeholder: '名称', rule: {validator: checkNotEmpty}},
           },
           {
             label: '描述',

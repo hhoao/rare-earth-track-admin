@@ -7,6 +7,7 @@
 import ManagerForm from '@/components/ManagerForm';
 import {addMember, deleteMember, listMember, updateMember} from '@/api/member';
 import {ref} from 'vue';
+import {checkNotEmpty} from '@/utils/check';
 
 const setJob = ref((data) => {
   return updateMember(data);
@@ -80,22 +81,22 @@ const managerFormData = ref({
       {
         label: '姓名',
         name: 'nickname',
-        style: {placeholder: '姓名'},
+        style: {placeholder: '姓名', rule: {validator: checkNotEmpty}},
       },
       {
         label: '用户id',
         name: 'userId',
-        style: {placeholder: '用户id'},
+        style: {placeholder: '用户id', rule: {validator: checkNotEmpty}},
       },
       {
         label: '工厂id',
         name: 'factoryId',
-        style: {placeholder: '工厂id'},
+        style: {placeholder: '工厂id', rule: {validator: checkNotEmpty}},
       },
       {
         label: '职业id',
         name: 'jobId',
-        style: {type: 'select', options: jobs, placeholder: '职业名'},
+        style: {type: 'select', options: jobs, placeholder: '职业名', rule: {validator: checkNotEmpty}},
       },
     ],
     handler: addMemberHandler,
@@ -152,12 +153,12 @@ const managerFormData = ref({
           {
             label: '用户id',
             name: 'userId',
-            style: {placeholder: '用户id'},
+            style: {placeholder: '用户id', rule: {validator: checkNotEmpty}},
           },
           {
             label: '工厂id',
             name: 'factoryId',
-            style: {placeholder: '工厂id'},
+            style: {placeholder: '工厂id', rule: {validator: checkNotEmpty}},
           },
           {
             label: '职业id',

@@ -8,6 +8,7 @@ import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
 import {addFactory, deleteFactory, listFactories, updateFactory} from '@/api/factory';
 import {deleteMenu} from '@/api/menu';
+import {checkNotEmpty} from '@/utils/check';
 
 const updateHandler = ref((data) => {
   return updateFactory(data);
@@ -66,17 +67,17 @@ const managerFormData = ref({
       {
         label: '名称',
         name: 'name',
-        style: {placeholder: '名称'},
+        style: {placeholder: '名称', rule: {validator: checkNotEmpty}},
       },
       {
         label: '手机号',
         name: 'phone',
-        style: {placeholder: '手机号'}
+        style: {placeholder: '手机号', rule: {validator: checkNotEmpty}}
       },
       {
         label: '邮箱',
         name: 'email',
-        style: {placeholder: '邮箱'}
+        style: {placeholder: '邮箱', rule: {validator: checkNotEmpty}}
       },
       {
         label: '地址',
@@ -130,17 +131,17 @@ const managerFormData = ref({
           {
             label: '名称',
             name: 'name',
-            style: {placeholder: '名称'},
+            style: {placeholder: '名称', rule: {validator: checkNotEmpty}},
           },
           {
             label: '手机号',
             name: 'phone',
-            style: {placeholder: '手机号'}
+            style: {placeholder: '手机号', rule: {validator: checkNotEmpty}}
           },
           {
             label: '邮箱',
             name: 'email',
-            style: {placeholder: '邮箱'}
+            style: {placeholder: '邮箱', rule: {validator: checkNotEmpty}}
           },
           {
             label: '地址',

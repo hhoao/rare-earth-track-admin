@@ -18,6 +18,7 @@
       <el-form :model="operationForm" :rules="getFormRules()" ref="FormRef" label-width="80px">
         <el-form-item
           v-for="item in data.items"
+          :prop="item.name"
           :key="item.name"
           :label="item.label + ': '"
         >
@@ -129,23 +130,26 @@ const init = (rowData) => {
 //动态表单校验规则
 const getFormRules = () => {
   let operationFormRules = {};
-  for (let item in props.data.items) {
+  for (let item of props.data.items) {
     if (item.style && item.style.rule) {
-      operationFormRules[item.name] = {
+      operationFormRules[item.name] = [{
         required: true,
         validator: item.style.rule.validator,
         trigger: 'blur',
-      };
+      }];
     }
   }
   return operationFormRules;
 };
+//展示对话框
 const showDialog = (item) => {
   if (item) {
-    operationForm.value = item;
+    //浅拷贝
+    operationForm.value = {...item};
   }
   operationDialogVisible.value = true;
 };
+//处理操作
 const handleOperation = (handlerProxy) => {
   let promise;
   if (handlerProxy) {

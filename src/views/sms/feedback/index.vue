@@ -8,6 +8,7 @@ import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
 import {addFeedback, deleteFeedback, listFeedbacks, updateFeedback} from '@/api/feedback';
 import {deleteMenu} from '@/api/menu';
+import {checkNotEmpty} from '@/utils/check';
 
 const updateHandler = ref((data) => {
   return updateFeedback(data);
@@ -64,12 +65,12 @@ const managerFormData = ref({
       {
         label: 'title',
         name: '标题',
-        style: {placeholder: '标题'},
+        style: {placeholder: '标题', rule: {validator: checkNotEmpty}},
       },
       {
         label: '类型',
         name: 'type',
-        style: {placeholder: '类型'}
+        style: {placeholder: '类型', rule: {validator: checkNotEmpty}}
       },
       {
         label: '是否启用',
@@ -119,12 +120,12 @@ const managerFormData = ref({
           {
             label: 'title',
             name: '标题',
-            style: {placeholder: '标题'},
+            style: {placeholder: '标题', rule: {validator: checkNotEmpty}},
           },
           {
             label: '类型',
             name: 'type',
-            style: {placeholder: '类型'}
+            style: {placeholder: '类型', rule: {validator: checkNotEmpty}}
           },
           {
             label: '是否启用',

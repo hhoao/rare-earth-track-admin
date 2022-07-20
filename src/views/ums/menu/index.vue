@@ -7,6 +7,7 @@
 import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
 import {addMenu, deleteMenu, listMenus, updateMenu} from '@/api/menu';
+import {checkNotEmpty, checkPassword, checkUsername} from '@/utils/check';
 
 const menuUpdateHandler = ref((data)=>{
   return updateMenu(data.name, data)
@@ -74,17 +75,17 @@ const managerFormData = ref({
       {
         label: '名称',
         name: 'name',
-        style: {placeholder: '姓名'},
+        style: {placeholder: '姓名', rule:{validator: checkUsername}},
       },
       {
         label: '标题',
         name: 'title',
-        style: {placeholder: '姓名'},
+        style: {placeholder: '姓名', rule: {validator: checkNotEmpty}},
       },
       {
         label: '前端图标',
         name: 'icon',
-        style: {placeholder: '前端图标'},
+        style: {placeholder: '前端图标', rule:{validator: checkNotEmpty}},
       },
       {
         label: '隐藏',
@@ -137,22 +138,22 @@ const managerFormData = ref({
           {
             label: 'id',
             name: 'id',
-            style: {placeholder: 'id号'},
+            style: {placeholder: 'id号', isDisable: true},
           },
           {
             label: '名称',
             name: 'name',
-            style: {placeholder: '姓名'},
+            style: {placeholder: '姓名', rule:{validator: checkNotEmpty}},
           },
           {
             label: '标题',
             name: 'title',
-            style: {placeholder: '姓名'},
+            style: {placeholder: '标题', rule:{validator: checkNotEmpty}},
           },
           {
             label: '前端图标',
             name: 'icon',
-            style: {placeholder: '前端图标'},
+            style: {placeholder: '前端图标', rule:{validator: checkNotEmpty}},
           },
           {
             label: '隐藏',

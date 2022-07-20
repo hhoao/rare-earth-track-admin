@@ -2,7 +2,7 @@
   <div style="margin: 80px 40px">
     <el-row :gutter="20">
       <el-col :span="6">
-        <el-card class="data-card" style="padding: 40px" :body-style="'padding: 0'">
+        <el-card class="data-card" :body-style="'padding: 0'">
           <svg-icon icon-class="share" :style="iconStyle" />
           <div>
             <p style="margin: 0">150100</p>
@@ -11,7 +11,7 @@
         </el-card>
       </el-col>
       <el-col :span="6">
-        <el-card class="data-card" style="padding: 40px" :body-style="'padding: 0'">
+        <el-card class="data-card" :body-style="'padding: 0'">
           <svg-icon icon-class="letter" :style="iconStyle" />
           <div>
             <p style="margin: 0">582104</p>
@@ -20,7 +20,7 @@
         </el-card>
       </el-col>
       <el-col :span="6">
-        <el-card class="data-card" style="padding: 40px" :body-style="'padding: 0'">
+        <el-card class="data-card" :body-style="'padding: 0'">
           <svg-icon icon-class="scan" :style="iconStyle" />
           <div>
             <p style="margin: 0">21480</p>
@@ -29,7 +29,7 @@
         </el-card>
       </el-col>
       <el-col :span="6">
-        <el-card class="data-card" style="padding: 40px" :body-style="'padding: 0'">
+        <el-card class="data-card" :body-style="'padding: 0'">
           <svg-icon icon-class="favour" :style="iconStyle" />
           <div>
             <p style="margin: 0">148123</p>

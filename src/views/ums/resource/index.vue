@@ -8,6 +8,7 @@ import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
 import {addResource, deleteResource, listResources, updateResource} from '@/api/resource';
 import {deleteMenu} from '@/api/menu';
+import {checkNotEmpty} from '@/utils/check';
 
 const updateHandler = ref((data)=>{
   return updateResource(data)
@@ -61,17 +62,17 @@ const managerFormData = ref({
       {
         label: '名称',
         name: 'name',
-        style: {placeholder: '名称'},
+        style: {placeholder: '名称', rule: {validator: checkNotEmpty}},
       },
       {
         label: '方法',
         name: 'method',
-        style: {placeholder: '方法'},
+        style: {placeholder: '方法', rule: {validator: checkNotEmpty}},
       },
       {
         label: 'url',
         name: 'url',
-        style: {placeholder: 'url'},
+        style: {placeholder: 'url', rule: {validator: checkNotEmpty}},
       },
     ],
     handler: addHandler,
@@ -116,17 +117,17 @@ const managerFormData = ref({
           {
             label: '名称',
             name: 'name',
-            style: {placeholder: '名称'},
+            style: {placeholder: '名称', rule: {validator: checkNotEmpty}},
           },
           {
             label: '方法',
             name: 'method',
-            style: {placeholder: '方法'},
+            style: {placeholder: '方法', rule: {validator: checkNotEmpty}},
           },
           {
             label: 'url',
             name: 'url',
-            style: {placeholder: 'url'},
+            style: {placeholder: 'url', rule: {validator: checkNotEmpty}},
           },
         ],
         handler: updateHandler

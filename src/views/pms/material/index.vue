@@ -8,6 +8,7 @@ import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
 import {addProduct, deleteProduct, listProducts, updateProduct} from '@/api/product';
 import {deleteMenu} from '@/api/menu';
+import {checkNotEmpty} from '@/utils/check';
 
 const updateHandler = ref((data) => {
   return updateProduct(data);
@@ -61,17 +62,17 @@ const managerFormData = ref({
       {
         label: '名称',
         name: 'name',
-        style: {placeholder: '名称'},
+        style: {placeholder: '名称', rule: {validator: checkNotEmpty}},
       },
       {
         label: '工厂id',
         name: 'factoryId',
-        style: {placeholder: '工厂id'},
+        style: {placeholder: '工厂id', rule: {validator: checkNotEmpty}},
       },
       {
         label: '批次',
         name: 'batchId',
-        style: {placeholder: '批次'}
+        style: {placeholder: '批次', rule: {validator: checkNotEmpty}}
       },
     ],
     handler: addHandler
@@ -116,16 +117,17 @@ const managerFormData = ref({
           {
             label: '工厂id',
             name: 'factoryId',
-            style: {placeholder: '工厂id'},
+            style: {placeholder: '工厂id', rule: {validator: checkNotEmpty}},
           },
           {
             label: '名称',
             name: 'name',
-            style: {placeholder: '名称'},
+            style: {placeholder: '名称', rule: {validator: checkNotEmpty}},
           },
           {
             label: '批次',
             name: 'batchId',
+            style: {placeholder: '批次', rule: {validator: checkNotEmpty}}
           },
         ],
         handler: updateHandler,
