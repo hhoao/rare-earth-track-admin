@@ -28,7 +28,7 @@
           </template>
           <template v-else-if="item.style.type=== 'switch'">
             <el-switch
-              v-model="scope.row.status"
+              :model-value="scope.row.status"
               :active-value="1"
               :inactive-value="0"
               @change="handleColumnChange(item.handler, scope.row)"
@@ -77,6 +77,7 @@
         </el-select>
         <el-button @click="handleSelectionRows(curMultiOperation.handler)" style="margin: 10px">确定</el-button>
       </template>
+      <!--分页-->
       <div style="float: right">
         <el-pagination
           style="padding-top: 0;"
@@ -93,13 +94,13 @@
 </template>
 
 <script setup>
-import {inject, reactive, ref, watch} from 'vue';
+import {inject, onMounted, reactive, ref, watch} from 'vue';
 import OperationForm from '@/components/ManagerForm/OperationForm';
 import SvgIcon from '@/components/SvgIcon';
-
 const props= defineProps({
   data: Object,
 })
+
 const repository = inject('repository');
 const page = reactive({
   total: 0,
@@ -128,6 +129,7 @@ const config = reactive({
   autoRefresh: true,
 })
 const list = repository.list
+const success = repository.success
 
 //刷新数据列表
 repository.refreshList=()=>{
@@ -140,6 +142,7 @@ repository.refreshList=()=>{
     })
   }
 }
+// 延迟刷新数据()
 repository.delayRefreshList = (promise) =>{
   if (promise && promise instanceof Promise) {
     if (repository.config.autoRefresh) {
@@ -153,7 +156,9 @@ repository.delayRefreshList = (promise) =>{
     }
   }
 }
-repository.refreshList()
+onMounted(()=>{
+  repository.refreshList()
+})
 
 const handleSelectionRows = (curMultiOperationHandler) =>{
   let promise = curMultiOperationHandler(listTableRef.value.getSelectionRows())
@@ -163,12 +168,22 @@ const handleSelectionRows = (curMultiOperationHandler) =>{
 
 const handleColumnChange = (handlerProxy, row) => {
   let promise = handlerProxy(row);
+  console.log(row)
   repository.delayRefreshList(promise);
 };
-
+// 操作处理
 const handleOperation = (handlerProxy, rowData) => {
   let promise = handlerProxy(rowData)
-  repository.delayRefreshList(promise);
+  if (promise) {
+    promise.then((res)=> {
+      if (res.code === 200 && res.message) {
+        success(res.message)
+        repository.refreshList()
+      }
+    })
+  }else {
+    repository.refreshList()
+  }
 }
 
 defineExpose({

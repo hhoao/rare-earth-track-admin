@@ -41,13 +41,13 @@ import ListTable from './ListTable';
 import QueryForm from './QueryForm';
 import OperationForm from './OperationForm'
 import SvgIcon from '@/components/SvgIcon';
+import {ElMessage} from 'element-plus';
 
 //初始化熟悉
 const props = defineProps({
   items: Array,
   data: Object,
 })
-
 
 //获取List函数 用来获取表格数据
 const data = toRef(props, 'data');
@@ -58,6 +58,12 @@ const repository = reactive({
   list: [],
   // 查询参数
   queryParams: ref({}),
+  // 操作成功提示
+  success: (message) => ElMessage({
+    message: `${message}`,
+    type: 'success',
+    duration: 3 * 1000
+  }),
   // 刷新list
   refreshList: ()=>{},
   // 延迟刷新表单

@@ -20,7 +20,6 @@ service.interceptors.request.use(config => {
   console.log(error) // for debug
   Promise.reject(error)
 })
-
 // response拦截器
 service.interceptors.response.use(
     response => {

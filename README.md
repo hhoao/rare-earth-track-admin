@@ -43,6 +43,6 @@
     >
     > `docker build -t hhoao/ret-web-admin-setup .`
     > 
-    > `dokcer push hhoao/ret-web-admin-setup`
+    > `docker push hhoao/ret-web-admin-setup`
     > 
     > 最后在服务器端启动就可以了

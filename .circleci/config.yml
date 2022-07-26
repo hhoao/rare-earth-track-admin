@@ -1,0 +1,37 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:16.15.1
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          key: v1-npm-{{ checksum "package-lock.lock" }}
+      - run: npm install
+      - save_cache:
+          key: v1-npm-{{ checksum "package-lock.lock" }}
+          paths:
+            - ./node_modules
+      - run: npm build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+  deploy:
+    docker:
+      - image: circleci/node:16.15.1
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run: docker build -t hhoao/ret-web-admin-setup .
+      - run: docker push hhoao/ret-web-admin-setup
+workflows:
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build

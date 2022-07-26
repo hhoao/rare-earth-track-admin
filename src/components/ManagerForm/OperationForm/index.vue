@@ -95,6 +95,7 @@
 <script setup>
 import {inject, ref} from 'vue';
 import SvgIcon from '@/components/SvgIcon';
+import {ElMessageBox} from 'element-plus';
 
 const props = defineProps({
   data: Object,
@@ -114,6 +115,7 @@ const treeData = ref(null);
 const treeDefaultCheckedKeys = ref([]);
 const fileList = ref([]);
 
+//初始化
 const init = (rowData) => {
   if (props.data.contentType === 'tree') {
     let handleRet = props.data.getTreeHandler(rowData);
@@ -131,13 +133,15 @@ const init = (rowData) => {
 //动态表单校验规则
 const getFormRules = () => {
   let operationFormRules = {};
-  for (let item of props.data.items) {
-    if (item.style && item.style.rule) {
-      operationFormRules[item.name] = [{
-        required: true,
-        validator: item.style.rule.validator,
-        trigger: 'blur',
-      }];
+  if (props.data.items) {
+    for (let item of props.data.items) {
+      if (item.style && item.style.rule) {
+        operationFormRules[item.name] = [{
+          required: true,
+          validator: item.style.rule.validator,
+          trigger: 'blur',
+        }];
+      }
     }
   }
   return operationFormRules;
@@ -153,7 +157,7 @@ const showDialog = (item) => {
 //处理操作
 const handleOperation = (handlerProxy) => {
   let promise;
-  let isValid;
+  let isValid=true;
   if (handlerProxy) {
     if (fileList.value.length !== 0) {
       operationForm.value.fileList = fileList;
@@ -164,19 +168,23 @@ const handleOperation = (handlerProxy) => {
       promise = handlerProxy({checkedNodes, rowData});
     } else {
       operationFormRef.value.validate(valid => {
+        isValid = valid;
         if (valid) {
-          isValid = valid
           promise = handlerProxy(operationForm.value);
         }
-      })
+      });
     }
   }
-  if (!isValid){
+  if (!isValid) {
     return;
   }
   if (promise && promise instanceof Promise) {
-    promise.then(() => {
+    promise.then((res) => {
       if (repository.config.autoRefresh) {
+        if (res && res.code === 200 && res.message) {
+          repository.success(res.message)
+          repository.refreshList()
+        }
         repository.refreshList();
       }
       operationDialogVisible.value = false;

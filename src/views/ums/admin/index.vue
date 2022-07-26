@@ -6,14 +6,10 @@
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
 import {getRoleNameByRoleId, listRoles} from '@/api/role';
-import {
-  addAdministrator,
-  deleteAdministrator,
-  list,
-  updateAdministrator,
-} from '@/api/administrator';
+import {addAdministrator, deleteAdministrator, list, updateAdministrator} from '@/api/administrator';
 import {ref} from 'vue';
-import {checkEmail, checkEmptyOption, checkMobile, checkPassword, checkUsername} from '@/utils/check';
+import {checkEmptyOption, checkPassword, checkUsername} from '@/utils/check';
+
 const addHandler = ref((data) => {
   return addAdministrator(data)
 })

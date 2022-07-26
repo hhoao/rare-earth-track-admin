@@ -5,17 +5,11 @@
 </template>
 <script setup>
 import ManagerForm from '@/components/ManagerForm';
-import {getRoleNameByRoleId} from '@/api/role';
-import {deleteUser, getUserAuths, list, updateUser} from '@/api/user';
+import {deleteUser, list, updateUser} from '@/api/user';
 import {ref} from 'vue';
 import {checkEmail, checkMobile} from '@/utils/check';
 
-const setRole = ref((data) => {
-  return updateUser(data)
-});
-const roleUpdateHandler = ref((data)=>{
-  return updateUser(data.id)
-})
+
 const updateHandler = ref((data)=>{
   return updateUser(data)
 })
@@ -29,24 +23,15 @@ const multiDeleteHandler = async (data)=>{
 }
 const getListHandler = async ({page, queryParams})=>{
   let userResponse =  await list({pageNum: page.pageNum, pageSize: page.pageSize}, queryParams)
-  let retList = []
+  let retList = [...userResponse.data.list]
   let retPage = {}
   retPage.total = userResponse.data.total;
-  for (let i = 0; i < userResponse.data.list.length; i++) {
-    let user = userResponse.data.list[i];
-    await getUserAuths(user.id).then((authResponse) => {
-      user.phone = authResponse.data.phone;
-      user.email = authResponse.data.email;
-      user.name = authResponse.data.username;
-      retList[i] = user;
-    });
-  }
   return {page: retPage, list: retList}
 }
 
 const allStatus = [
-  {value: '0', name: 'False'},
-  {value: '1', name: 'True'},
+  {value: 0, name: 'False'},
+  {value: 1, name: 'True'},
 ];
 
 const managerFormData = ref({
@@ -101,7 +86,7 @@ const managerFormData = ref({
         label: '是否启用',
         name: 'status',
         style: {type: 'switch'},
-        handler: roleUpdateHandler
+        handler: updateHandler
       },
     ],
     handler: getListHandler,

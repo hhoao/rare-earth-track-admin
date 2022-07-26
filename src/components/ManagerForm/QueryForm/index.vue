@@ -72,10 +72,13 @@ const formRef = ref()
 const queryParams = ref({})
 const repository = inject("repository")
 
+//进行搜索
 const handleSearchList = () => {
   repository.queryParams = queryParams
+  repository.success("搜索中")
   repository.refreshList()
 }
+//重置搜索表单
 const handleResetSearch = () => {
   queryParams.value = {}
   repository.refreshList()
