@@ -20,8 +20,8 @@ jobs:
           paths:
             - dist
   deploy:
-    docker:
-      - image: cimg/node:16.15.1
+    machine:
+      image: ubuntu-2004:current
     steps:
       - checkout
       - attach_workspace:
