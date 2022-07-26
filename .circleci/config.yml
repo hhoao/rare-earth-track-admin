@@ -8,13 +8,13 @@ jobs:
       - attach_workspace:
           at: .
       - restore_cache:
-          key: v1-npm-{{ checksum "package-lock.lock" }}
+          key: v1-npm-{{ checksum "package-lock.json" }}
       - run: npm install
       - save_cache:
-          key: v1-npm-{{ checksum "package-lock.lock" }}
+          key: v1-npm-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
-      - run: npm build
+      - run: npm run build
       - persist_to_workspace:
           root: .
           paths:
