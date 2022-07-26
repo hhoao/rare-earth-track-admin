@@ -29,9 +29,9 @@ jobs:
       - run: docker build -t hhoao/ret-web-admin-setup .
       - run:
           command: |
-            if [ ! -d ~/.docker ]: 
+            if [ ! -d ~/.docker ];
             then
-            mkdir ~/.docker
+              mkdir ~/.docker
             if
             cat > ~/.docker/config.json \<< EOF
             {
