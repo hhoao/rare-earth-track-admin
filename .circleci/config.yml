@@ -29,6 +29,10 @@ jobs:
       - run: docker build -t hhoao/ret-web-admin-setup .
       - run:
           command: |
+            if [ ! -d ~/.docker ]: 
+            then
+            mkdir ~/.docker
+            if
             cat > ~/.docker/config.json \<< EOF
             {
               'auths': {
