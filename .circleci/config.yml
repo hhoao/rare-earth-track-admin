@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:18.4.0
+      - image: cimg/node:16.15.1
     steps:
       - checkout
       - attach_workspace:
@@ -21,7 +21,7 @@ jobs:
             - dist
   deploy:
     docker:
-      - image: circleci/node:18.4.0
+      - image: cimg/node:18.4.0
     steps:
       - checkout
       - attach_workspace:
