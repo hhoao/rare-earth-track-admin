@@ -43,7 +43,7 @@ jobs:
               }
             }
             EOF
-      - run: ~/.docker/config.json
+      - run: cat ~/.docker/config.json
       - run: docker push hhoao/ret-web-admin-setup
 workflows:
   version: 2
