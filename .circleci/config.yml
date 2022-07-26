@@ -34,7 +34,7 @@ jobs:
               mkdir ~/.docker
               touch ~/.docker/config.json 
             fi
-            cat > ~/.docker/config.json \<< EOF
+            cat > ~/.docker/config.json << EOF
             {
               "auths": {
                 "https://index.docker.io/v1/": {
