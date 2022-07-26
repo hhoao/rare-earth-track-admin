@@ -32,7 +32,7 @@ jobs:
             if [ ! -d ~/.docker ];
             then
               mkdir ~/.docker
-            if
+            fi
             cat > ~/.docker/config.json \<< EOF
             {
               "auths": {
