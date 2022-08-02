@@ -26,6 +26,8 @@
 项目体验:
 * 前台: http://120.48.118.129/
 * 后台: http://120.48.118.129/admin
+  * 账户: customer
+  * 密码: customer
 
 如何运行:
 
@@ -34,15 +36,3 @@
 * > `npm install`
   >
   > `npm run serve`
-
-* 部署: 
-  * 部署完后端后输入:
-    > `npm install`
-    > 
-    > `npm build`
-    >
-    > `docker build -t hhoao/ret-web-admin-setup .`
-    > 
-    > `docker push hhoao/ret-web-admin-setup`
-    > 
-    > 最后在服务器端启动就可以了
