@@ -95,7 +95,6 @@
 <script setup>
 import {inject, ref} from 'vue';
 import SvgIcon from '@/components/SvgIcon';
-import {ElMessageBox} from 'element-plus';
 
 const props = defineProps({
   data: Object,
@@ -155,9 +154,9 @@ const showDialog = (item) => {
   operationDialogVisible.value = true;
 };
 //处理操作
-const handleOperation = (handlerProxy) => {
+const handleOperation = async (handlerProxy) => {
   let promise;
-  let isValid=true;
+  let isValid = true;
   if (handlerProxy) {
     if (fileList.value.length !== 0) {
       operationForm.value.fileList = fileList;
@@ -167,7 +166,7 @@ const handleOperation = (handlerProxy) => {
       let rowData = operationForm.value;
       promise = handlerProxy({checkedNodes, rowData});
     } else {
-      operationFormRef.value.validate(valid => {
+      await operationFormRef.value.validate(valid => {
         isValid = valid;
         if (valid) {
           promise = handlerProxy(operationForm.value);
@@ -182,17 +181,17 @@ const handleOperation = (handlerProxy) => {
     promise.then((res) => {
       if (repository.config.autoRefresh) {
         if (res && res.code === 200 && res.message) {
-          repository.success(res.message)
+          repository.success("操作成功")
           repository.refreshList()
+          operationDialogVisible.value = false;
         }
-        repository.refreshList();
       }
-      operationDialogVisible.value = false;
     });
   } else {
     if (repository.config.autoRefresh) {
       repository.refreshList();
     }
+    repository.success("操作成功")
     operationDialogVisible.value = false;
   }
 };

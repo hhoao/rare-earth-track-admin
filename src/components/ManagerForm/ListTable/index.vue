@@ -136,6 +136,7 @@ repository.refreshList=()=>{
   let promise = props.data.handler({page, queryParams: repository.queryParams});
   if (promise && promise instanceof Promise){
     promise.then((ret)=>{
+      // console.log(ret)
       repository.list = ret.list
       if (ret.page.total)
         page.total = ret.page.total

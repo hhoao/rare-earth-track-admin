@@ -8,7 +8,8 @@ import ManagerForm from '@/components/ManagerForm';
 import {ref} from 'vue';
 import {
   addRole,
-  allocMenus, allocResources,
+  allocMenus,
+  allocResources,
   deleteRole,
   listRoleAllMenus,
   listRoleAllResources,
@@ -96,9 +97,9 @@ const getListHandler = async ({page, queryParams}) => {
   retPage.total = response.data.total;
   return {page: retPage, list: response.data.list};
 };
-const addRoleHandler = ref((data)=>{
+const addRoleHandler = (data)=>{
   return addRole(data)
-})
+}
 const allStatus = [
   {value: '0', name: 'False'},
   {value: '1', name: 'True'},

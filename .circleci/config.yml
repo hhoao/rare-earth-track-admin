@@ -32,7 +32,6 @@ jobs:
             if [ ! -d ~/.docker ];
             then
               mkdir ~/.docker
-              touch ~/.docker/config.json 
             fi
             cat > ~/.docker/config.json << EOF
             {
