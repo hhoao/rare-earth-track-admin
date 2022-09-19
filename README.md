@@ -19,9 +19,7 @@
 | axios        | Axios 是一个基于 promise 的网络请求库。 <br/> https://www.axios-http.cn/                   |
 
 后端代码:
-
-* gitee: https://github.com/hhoao/rare-earth-track
-* github: https://github.com/hhoao/RETrack
+* github: https://github.com/hhoao/retrack
 
 项目体验:
 * 前台: http://120.48.118.129/
