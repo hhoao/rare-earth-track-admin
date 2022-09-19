@@ -20,8 +20,8 @@
 
 后端代码:
 
-* gitee: https://gitee.com/hhoao/rare-earth-track
-* github: https://github.com/HHoao/RETrack
+* gitee: https://github.com/hhoao/rare-earth-track
+* github: https://github.com/hhoao/RETrack
 
 项目体验:
 * 前台: http://120.48.118.129/
